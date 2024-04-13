@@ -1,0 +1,198 @@
+package com.navi.backend.flexycup;
+import java_cup.runtime.*;
+
+import javax.swing.*;
+import java.util.*;
+
+parser code
+{:
+    //public ArrayList<FileTextPane> panes = new ArrayList<>();
+    public XMLParser(Lexer lex) {
+        super(lex);
+    }
+    //Metodo al que se llama ante algun error sintactico
+    public void syntax_error(Symbol s){
+        String lexeme = s.value.toString();
+
+        int line = s.left;
+        int col = s.right;
+        System.out.println("ERROR SINTÁCTICO RECUPERADO");
+        System.out.println("\tLexeme: " + lexeme);
+        System.out.println("\tTipo: " + s.sym);
+        System.out.println("\trow: " + line);
+        System.out.println("\tcol: " + col);
+        TError err = new TError(lexeme,"Error Sintáctico", "Token no esperado", line, col);
+        //Querys.errors.add(err);
+    }
+
+    //Metodo que se llama en el momento en que ya no es posible una recuperacion
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        String lexeme = s.value.toString();
+        int line = s.left;
+        int col = s.right;
+        System.out.println("ERROR SINTACTICO NO RECUPERABLE");
+        System.out.println("\tLexeme: " + lexeme);
+        System.out.println("\trow: " + line);
+        System.out.println("\tcol: " + col);
+        TError err = new TError(lexeme,"Error Sintáctico", "Token no esperado", line, col);
+        //Querys.errors.add(err);
+    }
+:}
+
+terminal ACCIONES, ACCION, NOMBRE, PARAMETROS, PARAMETRO, ETIQUETAS, ETIQUETA, VALOR, ATRIBUTOS, ATRIBUTO,
+            NUEVO_SITIO_WEB, BORRRAR_SITIO_WEB, NUEVA_PAGINA, BORRAR_PAGINA, MODIFICAR_PAGINA,
+            AGREGAR_COMPONENTE, BORRAR_COMPONENTE, MODIFICAR_COMPONENTE, ID, USUARIO_CREACION,
+            FECHA_CREACION, FECHA_MODIFICACION, USUARIO_MODIFICACION, TITULO, SITIO, PADRE,
+            PAGINA, CLASE,
+            TEXTO, ALINEACION, COLOR, ORIGEN, ALTURA, ANCHO, ETIQUETAS_NOMBRE,
+            SLASH, MAYOR, MENOR, EQUAL;
+
+terminal String PARAM, CADENA;
+
+non terminal actions, acciones, accionP, accion, accion_open, accion_close,
+            action_bodyP, action_bodyPE, action_bodyPA,
+            parameters, parametrosP, parameters_p, parameter_open, parameter_close,
+            etiquetas, etiquetaP, etiqueta,
+            atributos, atributoP, atributes_p, atributo_open, atributo_close;
+
+
+
+//Presedencia
+start with actions;
+
+actions ::= accion
+            | acciones
+            ;
+acciones ::= MENOR ACCIONES MAYOR accionP MENOR SLASH ACCIONES MAYOR
+            | error accionP MENOR ACCIONES MAYOR;
+accionP ::= accionP accion
+            | accion
+            ;
+accion ::= accion_open NUEVO_SITIO_WEB MAYOR action_bodyP accion_close
+            | accion_open BORRRAR_SITIO_WEB MAYOR action_bodyP accion_close
+            | accion_open NUEVA_PAGINA MAYOR action_bodyPE accion_close
+            | accion_open BORRAR_PAGINA MAYOR action_bodyP accion_close
+            | accion_open MODIFICAR_PAGINA MAYOR action_bodyPE accion_close
+            | accion_open AGREGAR_COMPONENTE MAYOR action_bodyPA accion_close
+            | accion_open BORRAR_COMPONENTE MAYOR action_bodyPA accion_close
+            | accion_open MODIFICAR_COMPONENTE MAYOR action_bodyPA accion_close
+             ;
+accion_open ::= MENOR ACCION NOMBRE EQUAL
+            ;
+accion_close ::= MENOR SLASH ACCION MAYOR
+            ;
+//ACCIONES
+action_bodyP ::= parameters
+                ;
+action_bodyPE ::= parameters etiquetas
+            | etiquetas parameters
+            ;
+action_bodyPA ::= parameters atributos
+              | atributos parameters
+              ;
+//PARAMETROS
+parameters ::= MENOR PARAMETROS MAYOR parametrosP MENOR SLASH PARAMETROS MAYOR
+            ;
+parametrosP ::= parametrosP parameters_p
+            | parameters_p
+            ;
+parameters_p ::= parameter_open ID MAYOR PARAM parameter_close
+            | parameter_open USUARIO_CREACION MAYOR PARAM parameter_close
+            | parameter_open FECHA_CREACION MAYOR PARAM parameter_close
+            | parameter_open FECHA_MODIFICACION MAYOR PARAM parameter_close
+            | parameter_open USUARIO_MODIFICACION MAYOR PARAM parameter_close
+            | parameter_open TITULO MAYOR PARAM parameter_close
+            | parameter_open SITIO MAYOR PARAM parameter_close
+            | parameter_open PADRE MAYOR PARAM parameter_close
+            | parameter_open PAGINA MAYOR PARAM parameter_close
+            | parameter_open CLASE MAYOR PARAM parameter_close
+            ;
+parameter_open ::= MENOR PARAMETRO NOMBRE EQUAL
+            ;
+parameter_close ::= MENOR SLASH PARAMETRO MAYOR;
+/*
+parameters_p ::=
+            | parameter_id
+            | parameter_create_user
+            | parameter_create_date
+            | parameter_update_date
+            | parameter_update_user
+            | parameter_title
+            | parameter_site
+            | parameter_father
+            | parameter_page
+            | parameter_class
+            ;
+//PARAMETROS UNO POR UNO
+parameter_id ::= parameter_open ID MAYOR ID_NOMBRE parameter_close
+            ;
+parameter_create_user::= parameter_open USUARIO_CREACION MAYOR PARAM parameter_close
+            ;
+parameter_create_date ::= parameter_open FECHA_CREACION MAYOR PARAM parameter_close
+            ;
+parameter_update_date ::= parameter_open FECHA_MODIFICACION MAYOR PARAM parameter_close
+            ;
+parameter_update_user ::= parameter_open USUARIO_MODIFICACION MAYOR PARAM parameter_close
+            ;
+parameter_title ::= parameter_open TITULO MAYOR PARAM parameter_close
+            ;
+parameter_site ::= parameter_open SITIO MAYOR PARAM parameter_close
+            ;
+parameter_father ::= parameter_open PADRE MAYOR PARAM parameter_close
+            ;
+parameter_page ::= parameter_open PAGINA MAYOR PARAM parameter_close
+            ;
+parameter_class ::= parameter_open CLASE MAYOR TIPO_TITULO parameter_close
+            ;
+*/
+
+//ETIQUETAS
+etiquetas ::= MENOR ETIQUETAS MAYOR etiquetaP MENOR SLASH ETIQUETAS MAYOR
+            ;
+etiquetaP ::= etiquetaP etiqueta
+            | etiqueta
+            ;
+etiqueta ::= MENOR ETIQUETA VALOR EQUAL CADENA SLASH MAYOR
+            ;
+//ATRIBUTOS
+atributos ::= MENOR ATRIBUTOS MAYOR atributoP MENOR SLASH ATRIBUTOS MAYOR
+            ;
+atributoP ::= atributoP atributes_p
+            | atributes_p
+            ;
+atributes_p ::= atributo_open TEXTO MAYOR PARAM atributo_close
+            | atributo_open ALINEACION MAYOR PARAM atributo_close
+            | atributo_open COLOR MAYOR PARAM atributo_close
+            | atributo_open ORIGEN MAYOR PARAM atributo_close
+            | atributo_open ALTURA MAYOR PARAM atributo_close
+            | atributo_open ANCHO MAYOR PARAM atributo_close
+            | atributo_open PADRE MAYOR PARAM atributo_close
+            | atributo_open ETIQUETAS_NOMBRE MAYOR PARAM atributo_close
+            ;
+/*atributes_p ::= atribute_text
+            | atribute_align
+            | atribute_color
+            | atribute_url
+            | atribute_height
+            | atribute_width
+            | atribute_father
+            | atribute_label
+            ;
+atribute_text ::= atributo_open TEXTO MAYOR PARAM atributo_close
+            ;
+atribute_align ::= atributo_open ALINEACION MAYOR PARAM atributo_close
+            ;
+atribute_color ::= atributo_open COLOR MAYOR PARAM atributo_close
+            ;
+atribute_url ::= atributo_open ORIGEN MAYOR PARAM atributo_close
+            ;
+atribute_height ::= atributo_open ALTURA MAYOR PARAM atributo_close
+            ;
+atribute_width ::= atributo_open ANCHO MAYOR PARAM atributo_close
+            ;
+atribute_father ::= atributo_open PADRE MAYOR PARAM atributo_close
+            ;
+atribute_label ::= atributo_open ETIQUETAS_NOMBRE MAYOR PARAM atributo_close
+            ;*/
+atributo_open ::= MENOR ATRIBUTO NOMBRE EQUAL;
+atributo_close ::= MENOR SLASH ATRIBUTO MAYOR;
