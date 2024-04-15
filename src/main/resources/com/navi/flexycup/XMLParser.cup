@@ -1,13 +1,14 @@
 package com.navi.backend.flexycup;
 import java_cup.runtime.*;
-
+import com.navi.backend.webController.*;
 import javax.swing.*;
 import java.util.*;
 
 parser code
 {:
+    public Actions actions = new Actions();
     //public ArrayList<FileTextPane> panes = new ArrayList<>();
-    public XMLParser(Lexer lex) {
+    public XMLParser(XMLLexer lex) {
         super(lex);
     }
     //Metodo al que se llama ante algun error sintactico
@@ -49,12 +50,22 @@ terminal ACCIONES, ACCION, NOMBRE, PARAMETROS, PARAMETRO, ETIQUETAS, ETIQUETA, V
 
 terminal String PARAM, CADENA;
 
-non terminal actions, acciones, accionP, accion, accion_open, accion_close,
-            action_bodyP, action_bodyPE, action_bodyPA,
-            parameters, parametrosP, parameters_p, parameter_open, parameter_close,
-            etiquetas, etiquetaP, etiqueta,
-            atributos, atributoP, atributes_p, atributo_open, atributo_close;
+non terminal actions, acciones, accionP, accion,
+            accion_open, accion_close,
+            parameter_open, parameter_close,
+            atributo_open, atributo_close;
 
+non terminal ActionPA action_bodyPA;
+non terminal ActionPE action_bodyPE;
+
+non terminal Parameter parameter_p;
+non terminal ArrayList<Parameter> parameters, parametrosP, action_bodyP;
+
+non terminal Label etiqueta;
+non terminal ArrayList<Label> etiquetas, etiquetaP;
+
+non terminal Attribute attributes_p;
+non terminal ArrayList<Attribute> atributos, atributoP;
 
 
 //Presedencia
@@ -68,131 +79,203 @@ acciones ::= MENOR ACCIONES MAYOR accionP MENOR SLASH ACCIONES MAYOR
 accionP ::= accionP accion
             | accion
             ;
-accion ::= accion_open NUEVO_SITIO_WEB MAYOR action_bodyP accion_close
-            | accion_open BORRRAR_SITIO_WEB MAYOR action_bodyP accion_close
-            | accion_open NUEVA_PAGINA MAYOR action_bodyPE accion_close
-            | accion_open BORRAR_PAGINA MAYOR action_bodyP accion_close
-            | accion_open MODIFICAR_PAGINA MAYOR action_bodyPE accion_close
-            | accion_open AGREGAR_COMPONENTE MAYOR action_bodyPA accion_close
-            | accion_open BORRAR_COMPONENTE MAYOR action_bodyPA accion_close
-            | accion_open MODIFICAR_COMPONENTE MAYOR action_bodyPA accion_close
+accion ::= accion_open NUEVO_SITIO_WEB MAYOR action_bodyP:listP accion_close
+            {:
+            actions.createSite(listP);
+            :}
+            | accion_open BORRRAR_SITIO_WEB MAYOR action_bodyP:listP accion_close
+            {:
+            actions.deleteSite(listP);
+            :}
+            | accion_open NUEVA_PAGINA MAYOR action_bodyPE:a accion_close
+            {:
+            actions.createPage(a);
+            :}
+            | accion_open BORRAR_PAGINA MAYOR action_bodyP:listP accion_close
+            {:
+            actions.deletePage(listP);
+            :}
+            | accion_open MODIFICAR_PAGINA MAYOR action_bodyPE:a accion_close
+            {:
+            actions.editPage(a);
+            :}
+            | accion_open AGREGAR_COMPONENTE MAYOR action_bodyPA:a accion_close
+            {:
+            actions.createComponent(a);
+            :}
+            | accion_open BORRAR_COMPONENTE MAYOR action_bodyPA:a accion_close
+            {:
+            actions.deleteComponent(a);
+            :}
+            | accion_open MODIFICAR_COMPONENTE MAYOR action_bodyPA:a accion_close
+            {:
+            actions.editComponent(a);
+            :}
              ;
-accion_open ::= MENOR ACCION NOMBRE EQUAL
-            ;
-accion_close ::= MENOR SLASH ACCION MAYOR
-            ;
+accion_open ::= MENOR ACCION NOMBRE EQUAL;
+accion_close ::= MENOR SLASH ACCION MAYOR;
 //ACCIONES
-action_bodyP ::= parameters
+action_bodyP ::= parameters:listP
+                {:
+                RESULT = listP;
+                :}
                 ;
-action_bodyPE ::= parameters etiquetas
-            | etiquetas parameters
-            ;
-action_bodyPA ::= parameters atributos
-              | atributos parameters
+action_bodyPE ::= parameters:listP etiquetas:listE
+                {:
+                RESULT = new ActionPE(listP, listE);
+                :}
+                | etiquetas:listE parameters:listP
+                {:
+                RESULT = new ActionPE(listP, listE);
+                :}
+                ;
+action_bodyPA ::= parameters:listP atributos:listA
+              {:
+              RESULT = new ActionPA(listP, listA);
+              :}
+              | atributos:listA parameters:listP
+              {:
+              RESULT = new ActionPA(listP, listA);
+              :}
               ;
 //PARAMETROS
-parameters ::= MENOR PARAMETROS MAYOR parametrosP MENOR SLASH PARAMETROS MAYOR
+parameters ::= MENOR PARAMETROS MAYOR parametrosP:list MENOR SLASH PARAMETROS MAYOR
+            {:
+            RESULT = list;
+            :}
             ;
-parametrosP ::= parametrosP parameters_p
-            | parameters_p
+parametrosP ::= parameter_p:p
+            {:
+            ArrayList<Parameter> a = new ArrayList<>();
+            a.add(p);
+            RESULT = a;
+            :}
+            | parametrosP:a parameter_p:p
+            {:
+            a.add(p);
+            RESULT = a;
+            :}
             ;
-parameters_p ::= parameter_open ID MAYOR PARAM parameter_close
-            | parameter_open USUARIO_CREACION MAYOR PARAM parameter_close
-            | parameter_open FECHA_CREACION MAYOR PARAM parameter_close
-            | parameter_open FECHA_MODIFICACION MAYOR PARAM parameter_close
-            | parameter_open USUARIO_MODIFICACION MAYOR PARAM parameter_close
-            | parameter_open TITULO MAYOR PARAM parameter_close
-            | parameter_open SITIO MAYOR PARAM parameter_close
-            | parameter_open PADRE MAYOR PARAM parameter_close
-            | parameter_open PAGINA MAYOR PARAM parameter_close
-            | parameter_open CLASE MAYOR PARAM parameter_close
+parameter_p ::= parameter_open ID MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("ID",p, pleft, pright);
+            :}
+            | parameter_open USUARIO_CREACION MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("USUARIO_CREACION",p, pleft, pright);
+            :}
+            | parameter_open FECHA_CREACION MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("FECHA_CREACION",p, pleft, pright);
+            :}
+            | parameter_open FECHA_MODIFICACION MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("FECHA_MODIFICACION",p, pleft, pright);
+            :}
+            | parameter_open USUARIO_MODIFICACION MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("USUARIO_MODIFICACION",p, pleft, pright);
+            :}
+            | parameter_open TITULO MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("TITULO",p, pleft, pright);
+            :}
+            | parameter_open SITIO MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("SITIO",p, pleft, pright);
+            :}
+            | parameter_open PADRE MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("PADRE",p, pleft, pright);
+            :}
+            | parameter_open PAGINA MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("PAGINA",p, pleft, pright);
+            :}
+            | parameter_open CLASE MAYOR PARAM:p parameter_close
+            {:
+            RESULT = new Parameter("CLASE",p, pleft, pright);
+            :}
             ;
 parameter_open ::= MENOR PARAMETRO NOMBRE EQUAL
             ;
 parameter_close ::= MENOR SLASH PARAMETRO MAYOR;
-/*
-parameters_p ::=
-            | parameter_id
-            | parameter_create_user
-            | parameter_create_date
-            | parameter_update_date
-            | parameter_update_user
-            | parameter_title
-            | parameter_site
-            | parameter_father
-            | parameter_page
-            | parameter_class
-            ;
-//PARAMETROS UNO POR UNO
-parameter_id ::= parameter_open ID MAYOR ID_NOMBRE parameter_close
-            ;
-parameter_create_user::= parameter_open USUARIO_CREACION MAYOR PARAM parameter_close
-            ;
-parameter_create_date ::= parameter_open FECHA_CREACION MAYOR PARAM parameter_close
-            ;
-parameter_update_date ::= parameter_open FECHA_MODIFICACION MAYOR PARAM parameter_close
-            ;
-parameter_update_user ::= parameter_open USUARIO_MODIFICACION MAYOR PARAM parameter_close
-            ;
-parameter_title ::= parameter_open TITULO MAYOR PARAM parameter_close
-            ;
-parameter_site ::= parameter_open SITIO MAYOR PARAM parameter_close
-            ;
-parameter_father ::= parameter_open PADRE MAYOR PARAM parameter_close
-            ;
-parameter_page ::= parameter_open PAGINA MAYOR PARAM parameter_close
-            ;
-parameter_class ::= parameter_open CLASE MAYOR TIPO_TITULO parameter_close
-            ;
-*/
 
 //ETIQUETAS
-etiquetas ::= MENOR ETIQUETAS MAYOR etiquetaP MENOR SLASH ETIQUETAS MAYOR
+etiquetas ::= MENOR ETIQUETAS MAYOR etiquetaP:list MENOR SLASH ETIQUETAS MAYOR
+            {:
+            RESULT = list;
+            :}
             ;
-etiquetaP ::= etiquetaP etiqueta
-            | etiqueta
+etiquetaP ::= etiqueta:e
+             {:
+             ArrayList<Label> a = new ArrayList<>();
+             a.add(e);
+             RESULT = a;
+             :}
+            | etiquetaP:a etiqueta:e
+             {:
+             a.add(e);
+             RESULT = a;
+             :}
             ;
-etiqueta ::= MENOR ETIQUETA VALOR EQUAL CADENA SLASH MAYOR
+etiqueta ::= MENOR ETIQUETA VALOR EQUAL CADENA:c SLASH MAYOR
+            {:
+            RESULT = new Label(c, cleft, cright);
+            :}
             ;
 //ATRIBUTOS
-atributos ::= MENOR ATRIBUTOS MAYOR atributoP MENOR SLASH ATRIBUTOS MAYOR
+atributos ::= MENOR ATRIBUTOS MAYOR atributoP:list MENOR SLASH ATRIBUTOS MAYOR
+            {:
+            RESULT = list;
+            :}
             ;
-atributoP ::= atributoP atributes_p
-            | atributes_p
+atributoP ::= attributes_p:att
+             {:
+             ArrayList<Attribute> a = new ArrayList<>();
+             a.add(att);
+             RESULT = a;
+             :}
+             |
+            atributoP:a attributes_p:att
+            {:
+            a.add(att);
+            RESULT = a;
+            :}
+
             ;
-atributes_p ::= atributo_open TEXTO MAYOR PARAM atributo_close
-            | atributo_open ALINEACION MAYOR PARAM atributo_close
-            | atributo_open COLOR MAYOR PARAM atributo_close
-            | atributo_open ORIGEN MAYOR PARAM atributo_close
-            | atributo_open ALTURA MAYOR PARAM atributo_close
-            | atributo_open ANCHO MAYOR PARAM atributo_close
-            | atributo_open PADRE MAYOR PARAM atributo_close
-            | atributo_open ETIQUETAS_NOMBRE MAYOR PARAM atributo_close
+attributes_p ::= atributo_open TEXTO MAYOR PARAM:p atributo_close
+            {:
+            RESULT = new Attribute("TEXTO",p, pleft, pright);
+            :}
+            | atributo_open ALINEACION MAYOR PARAM:p atributo_close
+            {:
+            RESULT = new Attribute("ALINEACION",p, pleft, pright);
+            :}
+            | atributo_open COLOR MAYOR PARAM:p atributo_close
+            {:
+            RESULT = new Attribute("COLOR",p, pleft, pright);
+            :}
+            | atributo_open ORIGEN MAYOR PARAM:p atributo_close
+            {:
+            RESULT = new Attribute("ORIGEN",p, pleft, pright);
+            :}
+            | atributo_open ALTURA MAYOR PARAM:p atributo_close
+            {:
+            RESULT = new Attribute("ALTURA",p, pleft, pright);
+            :}
+            | atributo_open ANCHO MAYOR PARAM:p atributo_close
+            {:
+            RESULT = new Attribute("ANCHO",p, pleft, pright);
+            :}
+            | atributo_open PADRE MAYOR PARAM:p atributo_close
+            {:
+            RESULT = new Attribute("PADRE",p, pleft, pright);
+            :}
+            | atributo_open ETIQUETAS_NOMBRE MAYOR PARAM:p atributo_close
+            {:
+            RESULT = new Attribute("ETIQUETAS",p, pleft, pright);
+            :}
             ;
-/*atributes_p ::= atribute_text
-            | atribute_align
-            | atribute_color
-            | atribute_url
-            | atribute_height
-            | atribute_width
-            | atribute_father
-            | atribute_label
-            ;
-atribute_text ::= atributo_open TEXTO MAYOR PARAM atributo_close
-            ;
-atribute_align ::= atributo_open ALINEACION MAYOR PARAM atributo_close
-            ;
-atribute_color ::= atributo_open COLOR MAYOR PARAM atributo_close
-            ;
-atribute_url ::= atributo_open ORIGEN MAYOR PARAM atributo_close
-            ;
-atribute_height ::= atributo_open ALTURA MAYOR PARAM atributo_close
-            ;
-atribute_width ::= atributo_open ANCHO MAYOR PARAM atributo_close
-            ;
-atribute_father ::= atributo_open PADRE MAYOR PARAM atributo_close
-            ;
-atribute_label ::= atributo_open ETIQUETAS_NOMBRE MAYOR PARAM atributo_close
-            ;*/
 atributo_open ::= MENOR ATRIBUTO NOMBRE EQUAL;
 atributo_close ::= MENOR SLASH ATRIBUTO MAYOR;

@@ -475,7 +475,7 @@ public class XMLLexer implements java_cup.runtime.Scanner {
         return new Symbol(type, yyline+1,yycolumn+1);
     }
     private Symbol symbol(int type, Object value){
-        System.out.println(yytext().replace("[","").replace("]","").replaceAll("\"",""));
+        System.out.println(yytext());
         return new Symbol(type, yyline+1, yycolumn+1, value);
     }
     private void error(){

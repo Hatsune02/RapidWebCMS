@@ -6,6 +6,7 @@
 package com.navi.backend.flexycup;
 
 import java_cup.runtime.*;
+import com.navi.backend.webController.*;
 import javax.swing.*;
 import java.util.*;
 import java_cup.runtime.XMLElement;
@@ -38,18 +39,18 @@ public class XMLParser extends java_cup.runtime.lr_parser {
     "\000\002\004\003\000\002\005\007\000\002\005\007\000" +
     "\002\005\007\000\002\005\007\000\002\005\007\000\002" +
     "\005\007\000\002\005\007\000\002\005\007\000\002\006" +
-    "\006\000\002\007\006\000\002\010\003\000\002\011\004" +
-    "\000\002\011\004\000\002\012\004\000\002\012\004\000" +
-    "\002\013\012\000\002\014\004\000\002\014\003\000\002" +
-    "\015\007\000\002\015\007\000\002\015\007\000\002\015" +
-    "\007\000\002\015\007\000\002\015\007\000\002\015\007" +
-    "\000\002\015\007\000\002\015\007\000\002\015\007\000" +
-    "\002\016\006\000\002\017\006\000\002\020\012\000\002" +
-    "\021\004\000\002\021\003\000\002\022\011\000\002\023" +
-    "\012\000\002\024\004\000\002\024\003\000\002\025\007" +
+    "\006\000\002\007\006\000\002\021\003\000\002\015\004" +
+    "\000\002\015\004\000\002\014\004\000\002\014\004\000" +
+    "\002\017\012\000\002\020\003\000\002\020\004\000\002" +
+    "\016\007\000\002\016\007\000\002\016\007\000\002\016" +
+    "\007\000\002\016\007\000\002\016\007\000\002\016\007" +
+    "\000\002\016\007\000\002\016\007\000\002\016\007\000" +
+    "\002\010\006\000\002\011\006\000\002\023\012\000\002" +
+    "\024\003\000\002\024\004\000\002\022\011\000\002\026" +
+    "\012\000\002\027\003\000\002\027\004\000\002\025\007" +
     "\000\002\025\007\000\002\025\007\000\002\025\007\000" +
     "\002\025\007\000\002\025\007\000\002\025\007\000\002" +
-    "\025\007\000\002\026\006\000\002\027\006" });
+    "\025\007\000\002\012\006\000\002\013\006" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -73,7 +74,7 @@ public class XMLParser extends java_cup.runtime.lr_parser {
     "\004\050\034\001\002\000\004\051\037\001\002\000\004" +
     "\051\120\001\002\000\026\026\053\027\044\030\054\031" +
     "\051\032\055\033\046\034\045\035\047\036\050\037\052" +
-    "\001\002\000\004\010\041\001\002\000\004\051\uffe9\001" +
+    "\001\002\000\004\010\041\001\002\000\004\051\uffea\001" +
     "\002\000\004\006\042\001\002\000\004\052\043\001\002" +
     "\000\026\026\uffde\027\uffde\030\uffde\031\uffde\032\uffde\033" +
     "\uffde\034\uffde\035\uffde\036\uffde\037\uffde\001\002\000\004" +
@@ -98,14 +99,14 @@ public class XMLParser extends java_cup.runtime.lr_parser {
     "\051\060\001\002\000\004\051\uffe2\001\002\000\004\053" +
     "\116\001\002\000\004\051\060\001\002\000\004\051\uffe7" +
     "\001\002\000\006\010\041\047\122\001\002\000\004\051" +
-    "\uffea\001\002\000\004\007\123\001\002\000\004\050\124" +
+    "\uffe9\001\002\000\004\007\123\001\002\000\004\050\124" +
     "\001\002\000\004\051\uffeb\001\002\000\004\051\131\001" +
     "\002\000\004\051\024\001\002\000\004\051\026\001\002" +
     "\000\004\051\215\001\002\000\006\007\033\014\132\001" +
-    "\002\000\004\050\133\001\002\000\004\051\135\001\002" +
-    "\000\004\051\207\001\002\000\004\015\204\001\002\000" +
-    "\022\035\146\040\140\041\142\042\141\043\143\044\144" +
-    "\045\145\046\147\001\002\000\004\051\uffd6\001\002\000" +
+    "\002\000\004\050\133\001\002\000\004\051\136\001\002" +
+    "\000\004\051\uffd7\001\002\000\004\051\210\001\002\000" +
+    "\004\015\204\001\002\000\022\035\146\040\140\041\142" +
+    "\042\141\043\143\044\144\045\145\046\147\001\002\000" +
     "\004\050\201\001\002\000\004\050\176\001\002\000\004" +
     "\050\173\001\002\000\004\050\170\001\002\000\004\050" +
     "\165\001\002\000\004\050\162\001\002\000\004\050\157" +
@@ -125,7 +126,7 @@ public class XMLParser extends java_cup.runtime.lr_parser {
     "\002\000\004\051\uffd5\001\002\000\004\006\205\001\002" +
     "\000\004\052\206\001\002\000\022\035\uffcd\040\uffcd\041" +
     "\uffcd\042\uffcd\043\uffcd\044\uffcd\045\uffcd\046\uffcd\001\002" +
-    "\000\006\015\204\047\211\001\002\000\004\051\uffd7\001" +
+    "\000\004\051\uffd6\001\002\000\006\015\204\047\211\001" +
     "\002\000\004\014\212\001\002\000\004\050\213\001\002" +
     "\000\004\051\uffd8\001\002\000\004\051\uffed\001\002\000" +
     "\004\014\132\001\002\000\006\002\ufff5\051\ufff5\001\002" +
@@ -136,10 +137,10 @@ public class XMLParser extends java_cup.runtime.lr_parser {
     "\000\004\051\024\001\002\000\004\051\uffee\001\002\000" +
     "\006\002\ufff8\051\ufff8\001\002\000\004\050\233\001\002" +
     "\000\004\051\236\001\002\000\004\051\246\001\002\000" +
-    "\004\051\uffda\001\002\000\004\012\237\001\002\000\004" +
+    "\004\051\uffdb\001\002\000\004\012\237\001\002\000\004" +
     "\013\240\001\002\000\004\052\241\001\002\000\004\054" +
     "\242\001\002\000\004\047\243\001\002\000\004\050\244" +
-    "\001\002\000\004\051\uffd9\001\002\000\004\051\uffdb\001" +
+    "\001\002\000\004\051\uffd9\001\002\000\004\051\uffda\001" +
     "\002\000\006\012\237\047\247\001\002\000\004\011\250" +
     "\001\002\000\004\050\251\001\002\000\004\051\uffdc\001" +
     "\002\000\004\011\232\001\002\000\004\051\uffef\001\002" +
@@ -172,66 +173,66 @@ public class XMLParser extends java_cup.runtime.lr_parser {
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
-    "\010\024\013\022\001\001\000\002\001\001\000\002\001" +
+    "\017\022\021\024\001\001\000\002\001\001\000\002\001" +
     "\001\000\004\007\026\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\010\014\034\015\037\016\035" +
-    "\001\001\000\006\015\120\016\035\001\001\000\002\001" +
+    "\001\000\002\001\001\000\010\010\035\016\037\020\034" +
+    "\001\001\000\006\010\035\016\120\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\017\060\001\001\000\002\001\001\000\002\001" +
+    "\000\004\011\060\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\017\066\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\017\071\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\017\074\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\017\077\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\017\102\001" +
-    "\001\000\002\001\001\000\002\001\001\000\004\017\105" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\017" +
+    "\000\002\001\001\000\004\011\066\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\011\071\001\001\000\002" +
+    "\001\001\000\002\001\001\000\004\011\074\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\011\077\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\011\102\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\011\105" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\011" +
     "\110\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\017\113\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\017\116\001\001\000\002\001\001\000\002\001\001" +
+    "\011\113\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\011\116\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\010\012\126\013\127\023\125\001\001" +
-    "\000\004\013\216\001\001\000\004\007\215\001\001\000" +
-    "\004\023\213\001\001\000\002\001\001\000\002\001\001" +
-    "\000\010\024\133\025\136\026\135\001\001\000\006\025" +
-    "\207\026\135\001\001\000\002\001\001\000\002\001\001" +
+    "\002\001\001\000\010\014\126\017\127\026\125\001\001" +
+    "\000\004\017\216\001\001\000\004\007\215\001\001\000" +
+    "\004\026\213\001\001\000\002\001\001\000\002\001\001" +
+    "\000\010\012\136\025\133\027\134\001\001\000\002\001" +
+    "\001\000\006\012\136\025\206\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\027\151\001\001\000\002\001\001\000\002" +
+    "\001\000\004\013\151\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\027\160\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\027\163\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\027\166\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\027\171\001" +
-    "\001\000\002\001\001\000\002\001\001\000\004\027\174" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\027" +
+    "\001\000\002\001\001\000\004\013\160\001\001\000\002" +
+    "\001\001\000\002\001\001\000\004\013\163\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\013\166\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\013\171\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\013\174" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\013" +
     "\177\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\027\202\001\001\000\002\001\001\000\002\001\001\000" +
+    "\013\202\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\006\010\220\013\022\001\001\000" +
-    "\004\007\221\001\001\000\002\001\001\000\010\011\225" +
-    "\013\223\020\226\001\001\000\004\020\252\001\001\000" +
-    "\002\001\001\000\004\007\230\001\001\000\004\013\227" +
+    "\000\002\001\001\000\006\017\022\021\220\001\001\000" +
+    "\004\007\221\001\001\000\002\001\001\000\010\015\225" +
+    "\017\223\023\226\001\001\000\004\023\252\001\001\000" +
+    "\002\001\001\000\004\007\230\001\001\000\004\017\227" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\006\021\233\022\234\001\001\000\004\022\244" +
+    "\001\000\006\022\234\024\233\001\001\000\004\022\244" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\006\010" +
-    "\254\013\022\001\001\000\004\007\255\001\001\000\002" +
-    "\001\001\000\010\012\257\013\127\023\125\001\001\000" +
-    "\004\007\260\001\001\000\002\001\001\000\010\012\262" +
-    "\013\127\023\125\001\001\000\004\007\263\001\001\000" +
-    "\002\001\001\000\010\011\265\013\223\020\226\001\001" +
+    "\001\001\000\002\001\001\000\002\001\001\000\006\017" +
+    "\022\021\254\001\001\000\004\007\255\001\001\000\002" +
+    "\001\001\000\010\014\257\017\127\026\125\001\001\000" +
+    "\004\007\260\001\001\000\002\001\001\000\010\014\262" +
+    "\017\127\026\125\001\001\000\004\007\263\001\001\000" +
+    "\002\001\001\000\010\015\265\017\223\023\226\001\001" +
     "\000\004\007\266\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\010\004\275" +
     "\005\273\006\010\001\001\000\002\001\001\000\002\001" +
@@ -278,8 +279,9 @@ public class XMLParser extends java_cup.runtime.lr_parser {
 
 
 
+    public Actions actions = new Actions();
     //public ArrayList<FileTextPane> panes = new ArrayList<>();
-    public XMLParser(Lexer lex) {
+    public XMLParser(XMLLexer lex) {
         super(lex);
     }
     //Metodo al que se llama ante algun error sintactico
@@ -407,7 +409,12 @@ class CUP$XMLParser$actions {
           case 7: // accion ::= accion_open NUEVO_SITIO_WEB MAYOR action_bodyP accion_close 
             {
               Object RESULT =null;
-
+		int listPleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int listPright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Parameter> listP = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            actions.createSite(listP);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("accion",3, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -416,7 +423,12 @@ class CUP$XMLParser$actions {
           case 8: // accion ::= accion_open BORRRAR_SITIO_WEB MAYOR action_bodyP accion_close 
             {
               Object RESULT =null;
-
+		int listPleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int listPright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Parameter> listP = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            actions.deleteSite(listP);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("accion",3, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -425,7 +437,12 @@ class CUP$XMLParser$actions {
           case 9: // accion ::= accion_open NUEVA_PAGINA MAYOR action_bodyPE accion_close 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ActionPE a = (ActionPE)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            actions.createPage(a);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("accion",3, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -434,7 +451,12 @@ class CUP$XMLParser$actions {
           case 10: // accion ::= accion_open BORRAR_PAGINA MAYOR action_bodyP accion_close 
             {
               Object RESULT =null;
-
+		int listPleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int listPright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Parameter> listP = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            actions.deletePage(listP);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("accion",3, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -443,7 +465,12 @@ class CUP$XMLParser$actions {
           case 11: // accion ::= accion_open MODIFICAR_PAGINA MAYOR action_bodyPE accion_close 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ActionPE a = (ActionPE)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            actions.editPage(a);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("accion",3, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -452,7 +479,12 @@ class CUP$XMLParser$actions {
           case 12: // accion ::= accion_open AGREGAR_COMPONENTE MAYOR action_bodyPA accion_close 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ActionPA a = (ActionPA)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            actions.createComponent(a);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("accion",3, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -461,7 +493,12 @@ class CUP$XMLParser$actions {
           case 13: // accion ::= accion_open BORRAR_COMPONENTE MAYOR action_bodyPA accion_close 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ActionPA a = (ActionPA)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            actions.deleteComponent(a);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("accion",3, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -470,7 +507,12 @@ class CUP$XMLParser$actions {
           case 14: // accion ::= accion_open MODIFICAR_COMPONENTE MAYOR action_bodyPA accion_close 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ActionPA a = (ActionPA)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            actions.editComponent(a);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("accion",3, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -496,162 +538,270 @@ class CUP$XMLParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 17: // action_bodyP ::= parameters 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyP",6, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Parameter> RESULT =null;
+		int listPleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int listPright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		ArrayList<Parameter> listP = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+                RESULT = listP;
+                
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyP",15, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 18: // action_bodyPE ::= parameters etiquetas 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyPE",7, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ActionPE RESULT =null;
+		int listPleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int listPright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Parameter> listP = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		int listEleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int listEright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		ArrayList<Label> listE = (ArrayList<Label>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+                RESULT = new ActionPE(listP, listE);
+                
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyPE",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 19: // action_bodyPE ::= etiquetas parameters 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyPE",7, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ActionPE RESULT =null;
+		int listEleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int listEright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Label> listE = (ArrayList<Label>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		int listPleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int listPright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		ArrayList<Parameter> listP = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+                RESULT = new ActionPE(listP, listE);
+                
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyPE",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 20: // action_bodyPA ::= parameters atributos 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyPA",8, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ActionPA RESULT =null;
+		int listPleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int listPright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Parameter> listP = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		int listAleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int listAright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		ArrayList<Attribute> listA = (ArrayList<Attribute>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+              RESULT = new ActionPA(listP, listA);
+              
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyPA",10, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 21: // action_bodyPA ::= atributos parameters 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyPA",8, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ActionPA RESULT =null;
+		int listAleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int listAright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Attribute> listA = (ArrayList<Attribute>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		int listPleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int listPright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		ArrayList<Parameter> listP = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+              RESULT = new ActionPA(listP, listA);
+              
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("action_bodyPA",10, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 22: // parameters ::= MENOR PARAMETROS MAYOR parametrosP MENOR SLASH PARAMETROS MAYOR 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters",9, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-7)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Parameter> RESULT =null;
+		int listleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).left;
+		int listright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).right;
+		ArrayList<Parameter> list = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).value;
+		
+            RESULT = list;
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters",13, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-7)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // parametrosP ::= parametrosP parameters_p 
+          case 23: // parametrosP ::= parameter_p 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parametrosP",10, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Parameter> RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		Parameter p = (Parameter)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+            ArrayList<Parameter> a = new ArrayList<>();
+            a.add(p);
+            RESULT = a;
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parametrosP",14, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // parametrosP ::= parameters_p 
+          case 24: // parametrosP ::= parametrosP parameter_p 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parametrosP",10, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Parameter> RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Parameter> a = (ArrayList<Parameter>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		Parameter p = (Parameter)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+            a.add(p);
+            RESULT = a;
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parametrosP",14, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // parameters_p ::= parameter_open ID MAYOR PARAM parameter_close 
+          case 25: // parameter_p ::= parameter_open ID MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("ID",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // parameters_p ::= parameter_open USUARIO_CREACION MAYOR PARAM parameter_close 
+          case 26: // parameter_p ::= parameter_open USUARIO_CREACION MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("USUARIO_CREACION",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // parameters_p ::= parameter_open FECHA_CREACION MAYOR PARAM parameter_close 
+          case 27: // parameter_p ::= parameter_open FECHA_CREACION MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("FECHA_CREACION",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // parameters_p ::= parameter_open FECHA_MODIFICACION MAYOR PARAM parameter_close 
+          case 28: // parameter_p ::= parameter_open FECHA_MODIFICACION MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("FECHA_MODIFICACION",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // parameters_p ::= parameter_open USUARIO_MODIFICACION MAYOR PARAM parameter_close 
+          case 29: // parameter_p ::= parameter_open USUARIO_MODIFICACION MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("USUARIO_MODIFICACION",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // parameters_p ::= parameter_open TITULO MAYOR PARAM parameter_close 
+          case 30: // parameter_p ::= parameter_open TITULO MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("TITULO",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // parameters_p ::= parameter_open SITIO MAYOR PARAM parameter_close 
+          case 31: // parameter_p ::= parameter_open SITIO MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("SITIO",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // parameters_p ::= parameter_open PADRE MAYOR PARAM parameter_close 
+          case 32: // parameter_p ::= parameter_open PADRE MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("PADRE",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // parameters_p ::= parameter_open PAGINA MAYOR PARAM parameter_close 
+          case 33: // parameter_p ::= parameter_open PAGINA MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("PAGINA",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // parameters_p ::= parameter_open CLASE MAYOR PARAM parameter_close 
+          case 34: // parameter_p ::= parameter_open CLASE MAYOR PARAM parameter_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameters_p",11, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Parameter RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Parameter("CLASE",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_p",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
@@ -660,7 +810,7 @@ class CUP$XMLParser$actions {
             {
               Object RESULT =null;
 
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_open",12, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-3)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_open",6, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-3)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
@@ -669,42 +819,68 @@ class CUP$XMLParser$actions {
             {
               Object RESULT =null;
 
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_close",13, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-3)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("parameter_close",7, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-3)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 37: // etiquetas ::= MENOR ETIQUETAS MAYOR etiquetaP MENOR SLASH ETIQUETAS MAYOR 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("etiquetas",14, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-7)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Label> RESULT =null;
+		int listleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).left;
+		int listright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).right;
+		ArrayList<Label> list = (ArrayList<Label>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).value;
+		
+            RESULT = list;
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("etiquetas",17, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-7)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // etiquetaP ::= etiquetaP etiqueta 
+          case 38: // etiquetaP ::= etiqueta 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("etiquetaP",15, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Label> RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		Label e = (Label)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+             ArrayList<Label> a = new ArrayList<>();
+             a.add(e);
+             RESULT = a;
+             
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("etiquetaP",18, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // etiquetaP ::= etiqueta 
+          case 39: // etiquetaP ::= etiquetaP etiqueta 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("etiquetaP",15, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Label> RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Label> a = (ArrayList<Label>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		Label e = (Label)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+             a.add(e);
+             RESULT = a;
+             
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("etiquetaP",18, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 40: // etiqueta ::= MENOR ETIQUETA VALOR EQUAL CADENA SLASH MAYOR 
             {
-              Object RESULT =null;
-
+              Label RESULT =null;
+		int cleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-2)).right;
+		String c = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-2)).value;
+		
+            RESULT = new Label(c, cleft, cright);
+            
               CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("etiqueta",16, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-6)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
@@ -712,99 +888,160 @@ class CUP$XMLParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 41: // atributos ::= MENOR ATRIBUTOS MAYOR atributoP MENOR SLASH ATRIBUTOS MAYOR 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributos",17, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-7)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Attribute> RESULT =null;
+		int listleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).left;
+		int listright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).right;
+		ArrayList<Attribute> list = (ArrayList<Attribute>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)).value;
+		
+            RESULT = list;
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributos",20, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-7)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 42: // atributoP ::= atributoP atributes_p 
+          case 42: // atributoP ::= attributes_p 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributoP",18, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Attribute> RESULT =null;
+		int attleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int attright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		Attribute att = (Attribute)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+             ArrayList<Attribute> a = new ArrayList<>();
+             a.add(att);
+             RESULT = a;
+             
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributoP",21, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 43: // atributoP ::= atributes_p 
+          case 43: // atributoP ::= atributoP attributes_p 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributoP",18, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              ArrayList<Attribute> RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		ArrayList<Attribute> a = (ArrayList<Attribute>)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		int attleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).left;
+		int attright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()).right;
+		Attribute att = (Attribute)((java_cup.runtime.Symbol) CUP$XMLParser$stack.peek()).value;
+		
+            a.add(att);
+            RESULT = a;
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributoP",21, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 44: // atributes_p ::= atributo_open TEXTO MAYOR PARAM atributo_close 
+          case 44: // attributes_p ::= atributo_open TEXTO MAYOR PARAM atributo_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Attribute RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Attribute("TEXTO",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("attributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 45: // atributes_p ::= atributo_open ALINEACION MAYOR PARAM atributo_close 
+          case 45: // attributes_p ::= atributo_open ALINEACION MAYOR PARAM atributo_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Attribute RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Attribute("ALINEACION",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("attributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 46: // atributes_p ::= atributo_open COLOR MAYOR PARAM atributo_close 
+          case 46: // attributes_p ::= atributo_open COLOR MAYOR PARAM atributo_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Attribute RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Attribute("COLOR",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("attributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 47: // atributes_p ::= atributo_open ORIGEN MAYOR PARAM atributo_close 
+          case 47: // attributes_p ::= atributo_open ORIGEN MAYOR PARAM atributo_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Attribute RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Attribute("ORIGEN",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("attributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 48: // atributes_p ::= atributo_open ALTURA MAYOR PARAM atributo_close 
+          case 48: // attributes_p ::= atributo_open ALTURA MAYOR PARAM atributo_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Attribute RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Attribute("ALTURA",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("attributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 49: // atributes_p ::= atributo_open ANCHO MAYOR PARAM atributo_close 
+          case 49: // attributes_p ::= atributo_open ANCHO MAYOR PARAM atributo_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Attribute RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Attribute("ANCHO",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("attributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 50: // atributes_p ::= atributo_open PADRE MAYOR PARAM atributo_close 
+          case 50: // attributes_p ::= atributo_open PADRE MAYOR PARAM atributo_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Attribute RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Attribute("PADRE",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("attributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 51: // atributes_p ::= atributo_open ETIQUETAS_NOMBRE MAYOR PARAM atributo_close 
+          case 51: // attributes_p ::= atributo_open ETIQUETAS_NOMBRE MAYOR PARAM atributo_close 
             {
-              Object RESULT =null;
-
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              Attribute RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).right;
+		String p = (String)((java_cup.runtime.Symbol) CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-1)).value;
+		
+            RESULT = new Attribute("ETIQUETAS",p, pleft, pright);
+            
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("attributes_p",19, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-4)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
@@ -813,7 +1050,7 @@ class CUP$XMLParser$actions {
             {
               Object RESULT =null;
 
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributo_open",20, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-3)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributo_open",8, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-3)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 
@@ -822,7 +1059,7 @@ class CUP$XMLParser$actions {
             {
               Object RESULT =null;
 
-              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributo_close",21, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-3)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
+              CUP$XMLParser$result = parser.getSymbolFactory().newSymbol("atributo_close",9, ((java_cup.runtime.Symbol)CUP$XMLParser$stack.elementAt(CUP$XMLParser$top-3)), ((java_cup.runtime.Symbol)CUP$XMLParser$stack.peek()), RESULT);
             }
           return CUP$XMLParser$result;
 

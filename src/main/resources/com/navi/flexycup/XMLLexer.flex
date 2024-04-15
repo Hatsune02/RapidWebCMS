@@ -61,11 +61,10 @@ Cadena = \"([^\"]*)\"
     public static ArrayList<TError> errors = new ArrayList<>();
 
     private Symbol symbol(int type){
-        System.out.println(yytext() + " " + type);
         return new Symbol(type, yyline+1,yycolumn+1);
     }
     private Symbol symbol(int type, Object value){
-        System.out.println(yytext() + " " + type);
+        System.out.println(yytext().replace("[","").replace("]","").replaceAll("\"",""));
         return new Symbol(type, yyline+1, yycolumn+1, value);
     }
     private void error(){
@@ -115,7 +114,7 @@ Cadena = \"([^\"]*)\"
     "/"                                  { return symbol(SLASH, yytext());    }
     "<"                                  { return symbol(MENOR, yytext());       }
     ">"                                  { return symbol(MAYOR, yytext());      }
-    {param}                              { return symbol(PARAM, yytext());            }
+    {param}                              { return symbol(PARAM, yytext().replace("[","").replace("]","")); }
     {Cadena}                             { return symbol(CADENA, yytext().replaceAll("\"",""));        }
     "="                                  { return symbol(EQUAL, yytext());         }
     {WhiteSpace}                         { /**/ }
