@@ -6,5 +6,6 @@ import lombok.*;
 public class WComponent {
     private String id, page, clase;
     private String text, align, color, url, height, width, labels;
+    private String labelHTML;
 
 }

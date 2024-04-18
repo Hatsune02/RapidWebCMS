@@ -1,7 +1,8 @@
-package com.navi.backend.flexycup;
+package com.navi.backend.XMLParserLexer;
 import java_cup.runtime.*;
 import java.util.ArrayList;
-import static com.navi.backend.flexycup.sym.*;
+import static com.navi.backend.XMLParserLexer.sym.*;
+import com.navi.UI.*;
 %% //separador de area
 
 %public
@@ -38,7 +39,6 @@ v = [vV]
 //y = [yY]
 //z = [zZ]
 
-//new_site = "\""{n}{u}{e}{v}{o}"_"{s}{i}{t}{i}{o}"_"{w}{e}{b}"\""
 
 acciones = {a}{c}{c}{i}{o}{n}{e}{s}
 accion = {a}{c}{c}{i}{o}{n}
@@ -58,8 +58,6 @@ param = \[[^\]]*\]
 Cadena = \"([^\"]*)\"
 
 %{
-    public static ArrayList<TError> errors = new ArrayList<>();
-
     private Symbol symbol(int type){
         return new Symbol(type, yyline+1,yycolumn+1);
     }
@@ -70,7 +68,7 @@ Cadena = \"([^\"]*)\"
     private void error(){
         System.out.println("Error en linea: "+(yyline+1)+", columna: "+(yycolumn+1));
         TError err = new TError(yytext(), "Error Léxico", "Símbolo inválido", yyline+1, yycolumn+1);
-        errors.add(err);
+        DashBoard.ERRORS.add(err);
     }
 %}
 
@@ -118,7 +116,8 @@ Cadena = \"([^\"]*)\"
     {Cadena}                             { return symbol(CADENA, yytext().replaceAll("\"",""));        }
     "="                                  { return symbol(EQUAL, yytext());         }
     {WhiteSpace}                         { /**/ }
-[^]                                      {error(); }
+
+[^]                         {error(); }
 
 
 <<EOF>>             {return symbol(EOF); }

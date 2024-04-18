@@ -1,15 +1,19 @@
-package com.navi.backend.flexycup;
+package com.navi.backend.XMLParserLexer;
 import java_cup.runtime.*;
 import com.navi.backend.webController.*;
+import com.navi.UI.*;
 import javax.swing.*;
 import java.util.*;
 
 parser code
 {:
     public Actions actions = new Actions();
-    //public ArrayList<FileTextPane> panes = new ArrayList<>();
+    private boolean valid = false;
     public XMLParser(XMLLexer lex) {
         super(lex);
+    }
+    public void setValid(boolean valid){
+        this.valid = valid;
     }
     //Metodo al que se llama ante algun error sintactico
     public void syntax_error(Symbol s){
@@ -23,7 +27,7 @@ parser code
         System.out.println("\trow: " + line);
         System.out.println("\tcol: " + col);
         TError err = new TError(lexeme,"Error Sintáctico", "Token no esperado", line, col);
-        //Querys.errors.add(err);
+        DashBoard.ERRORS.add(err);
     }
 
     //Metodo que se llama en el momento en que ya no es posible una recuperacion
@@ -36,7 +40,7 @@ parser code
         System.out.println("\trow: " + line);
         System.out.println("\tcol: " + col);
         TError err = new TError(lexeme,"Error Sintáctico", "Token no esperado", line, col);
-        //Querys.errors.add(err);
+        DashBoard.ERRORS.add(err);
     }
 :}
 
@@ -81,35 +85,35 @@ accionP ::= accionP accion
             ;
 accion ::= accion_open NUEVO_SITIO_WEB MAYOR action_bodyP:listP accion_close
             {:
-            actions.createSite(listP);
+            if(valid) actions.createSite(listP);
             :}
             | accion_open BORRRAR_SITIO_WEB MAYOR action_bodyP:listP accion_close
             {:
-            actions.deleteSite(listP);
+            if(valid) actions.deleteSite(listP);
             :}
             | accion_open NUEVA_PAGINA MAYOR action_bodyPE:a accion_close
             {:
-            actions.createPage(a);
+            if(valid) actions.createPage(a);
             :}
             | accion_open BORRAR_PAGINA MAYOR action_bodyP:listP accion_close
             {:
-            actions.deletePage(listP);
+            if(valid) actions.deletePage(listP);
             :}
             | accion_open MODIFICAR_PAGINA MAYOR action_bodyPE:a accion_close
             {:
-            actions.editPage(a);
+            if(valid) actions.editPage(a);
             :}
             | accion_open AGREGAR_COMPONENTE MAYOR action_bodyPA:a accion_close
             {:
-            actions.createComponent(a);
+            if(valid) actions.createComponent(a);
             :}
-            | accion_open BORRAR_COMPONENTE MAYOR action_bodyPA:a accion_close
+            | accion_open BORRAR_COMPONENTE MAYOR action_bodyP:listP accion_close
             {:
-            actions.deleteComponent(a);
+            if(valid) actions.deleteComponent(listP);
             :}
             | accion_open MODIFICAR_COMPONENTE MAYOR action_bodyPA:a accion_close
             {:
-            actions.editComponent(a);
+            if(valid) actions.editComponent(a);
             :}
              ;
 accion_open ::= MENOR ACCION NOMBRE EQUAL;

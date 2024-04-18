@@ -1,0 +1,110 @@
+package com.navi.backend.CMSParserLexer;
+import java_cup.runtime.*;
+import com.navi.backend.queryController.*;
+import com.navi.backend.XMLParserLexer.*;
+import com.navi.UI.*;
+import javax.swing.*;
+import java.util.*;
+
+parser code
+{:
+    public CMSParser(CMSLexer lex) {
+        super(lex);
+    }
+    //Metodo al que se llama ante algun error sintactico
+    public void syntax_error(Symbol s){
+        String lexeme = s.value.toString();
+
+        int line = s.left;
+        int col = s.right;
+        System.out.println("ERROR SINTÁCTICO RECUPERADO");
+        System.out.println("\tLexeme: " + lexeme);
+        System.out.println("\tTipo: " + s.sym);
+        System.out.println("\trow: " + line);
+        System.out.println("\tcol: " + col);
+        TError err = new TError(lexeme,"Error Sintáctico", "Token no esperado", line, col);
+        DashBoard.ERRORS.add(err);
+    }
+
+    //Metodo que se llama en el momento en que ya no es posible una recuperacion
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        String lexeme = s.value.toString();
+        int line = s.left;
+        int col = s.right;
+        System.out.println("ERROR SINTACTICO NO RECUPERABLE");
+        System.out.println("\tLexeme: " + lexeme);
+        System.out.println("\trow: " + line);
+        System.out.println("\tcol: " + col);
+        TError err = new TError(lexeme,"Error Sintáctico", "Token no esperado", line, col);
+        DashBoard.ERRORS.add(err);
+    }
+:}
+
+terminal CONSULTAR, VISITAS_SITIO, VISITAS_PAGINA, PAGINAS_P, COMPONENTE, TODOS,
+            COMA, P_COMA, TITULO, PARRAFO, IMAGEN, VIDEO, MENU;
+
+terminal String PATH;
+
+non terminal querys, query;
+
+non terminal ArrayList<String> paths;
+
+
+
+//Presedencia
+start with querys;
+
+querys      ::= query P_COMA
+            | querys query P_COMA
+            ;
+query     ::= CONSULTAR VISITAS_SITIO paths:ps
+            {:
+                Query.consultVisitsSites(ps);
+            :}
+            | CONSULTAR VISITAS_PAGINA paths:ps
+            {:
+                Query.consultVisitsPages(ps);
+            :}
+            | CONSULTAR PAGINAS_P PATH:p
+            {:
+                Query.consultPopularPages(p);
+            :}
+            | CONSULTAR COMPONENTE TITULO PATH:p
+            {:
+                Query.consultComponents(p, 1);
+            :}
+            | CONSULTAR COMPONENTE PARRAFO PATH:p
+            {:
+                Query.consultComponents(p, 2);
+            :}
+            | CONSULTAR COMPONENTE IMAGEN PATH:p
+            {:
+                Query.consultComponents(p, 3);
+            :}
+            | CONSULTAR COMPONENTE VIDEO PATH:p
+            {:
+                Query.consultComponents(p, 4);
+            :}
+            | CONSULTAR COMPONENTE MENU PATH:p
+            {:
+                Query.consultComponents(p, 5);
+            :}
+            | CONSULTAR COMPONENTE TODOS PATH:p
+            {:
+                Query.consultComponents(p, 6);
+            :}
+            ;
+
+paths     ::= PATH:p
+            {:
+            ArrayList<String> v = new ArrayList<>();
+            v.add(p);
+            RESULT = v;
+            :}
+            | paths:v COMA PATH:p
+            {:
+            v.add(p);
+            RESULT = v;
+            :}
+            ;
+

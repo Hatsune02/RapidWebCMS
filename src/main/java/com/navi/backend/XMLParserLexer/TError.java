@@ -1,12 +1,12 @@
-package com.navi.backend.flexycup;
+package com.navi.backend.XMLParserLexer;
 
 import lombok.*;
 
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor
 public class TError {
-    private String lexeme, type, description;
-    private int line, col;
+    String lexeme, type, description;
+    int line, col;
 
     @Override
     public String toString() {
