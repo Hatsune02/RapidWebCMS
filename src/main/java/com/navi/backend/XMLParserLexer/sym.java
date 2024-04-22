@@ -16,7 +16,7 @@ public class sym {
   public static final int NOMBRE = 4;
   public static final int ANCHO = 35;
   public static final int ETIQUETAS = 7;
-  public static final int PARAM = 41;
+  public static final int PARAM = 42;
   public static final int TITULO = 25;
   public static final int PADRE = 27;
   public static final int ID = 20;
@@ -26,11 +26,12 @@ public class sym {
   public static final int EQUAL = 40;
   public static final int CLASE = 29;
   public static final int error = 1;
-  public static final int CADENA = 42;
+  public static final int CADENA = 43;
   public static final int MENOR = 39;
   public static final int FECHA_MODIFICACION = 23;
   public static final int ETIQUETAS_NOMBRE = 36;
   public static final int ATRIBUTOS = 10;
+  public static final int UNKNOWN = 41;
   public static final int ATRIBUTO = 11;
   public static final int ACCION = 3;
   public static final int COLOR = 32;
@@ -93,6 +94,7 @@ public class sym {
   "MAYOR",
   "MENOR",
   "EQUAL",
+  "UNKNOWN",
   "PARAM",
   "CADENA"
   };

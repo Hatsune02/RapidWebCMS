@@ -23,14 +23,14 @@ public class HTMLController {
         }
         ApacheController.createSite(id);
     }
-    public static void createWebPage(String id, String path, String title, String site) {
-        File dir = new File("web_sites/"+path);
+    public static void createWebPage(String path, String title, String site) {
+        File dir = new File("/var/www/html/"+path);
         if (!dir.exists()) {
             dir.mkdir();
         }
         if(title.isEmpty()) title = site;
-        File index = new File("/var/www/html/"+path+ "/"+id+".html");
-        String contenidoHTML = createHTMLEmpty(title);
+        File index = new File("/var/www/html/"+path+ "index.html");
+        String contenidoHTML = createHTMLEmpty(site, title);
         try (FileWriter writer = new FileWriter(index)) {
             writer.write(contenidoHTML);
             System.out.println("Archivo index.html creado en la carpeta de la pagina web.");
@@ -40,7 +40,7 @@ public class HTMLController {
     }
     public static void editWebPage(String path, String title, String site) {
         try {
-            Path file = Paths.get("web_sites/"+path+".html");
+            Path file = Paths.get("/var/www/html/"+path+"index.html");
             byte[] contenido = Files.readAllBytes(file);
             String contenidoStr = new String(contenido, StandardCharsets.UTF_8);
 
@@ -64,14 +64,14 @@ public class HTMLController {
 
     public static void addComponent(String path, String component) {
         try {
-            Path file = Paths.get("web_sites/"+path+".html");
+            Path file = Paths.get("/var/www/html/"+path+"index.html");
             byte[] contenido = Files.readAllBytes(file);
             String contenidoStr = new String(contenido, StandardCharsets.UTF_8);
 
             // Encontrar la posición del cierre del tag </body>
-            int indexBody = contenidoStr.indexOf("</body>");
-            if (indexBody != -1) {
-                String newContent = contenidoStr.substring(0, indexBody) +"  "+ component +"\n"+ contenidoStr.substring(indexBody);
+            int indexSection = contenidoStr.indexOf("</section>");
+            if (indexSection != -1) {
+                String newContent = contenidoStr.substring(0, indexSection) +"  "+ component +"\n"+ contenidoStr.substring(indexSection);
 
                 Files.write(file, newContent.getBytes(StandardCharsets.UTF_8));
             } else {
@@ -83,13 +83,13 @@ public class HTMLController {
     }
     public static void editComponent(String pageID, String path, ArrayList<WComponent> components) {
         try {
-            Path file = Paths.get("web_sites/"+path+".html");
+            Path file = Paths.get("/var/www/html/"+path+"index.html");
             byte[] contenido = Files.readAllBytes(file);
             String contenidoStr = new String(contenido, StandardCharsets.UTF_8);
 
-            int indexBodyInicio = contenidoStr.indexOf("<body>");
-            int indexBodyFin = contenidoStr.indexOf("</body>");
-            StringBuilder newBody = new StringBuilder(contenidoStr.substring(0, indexBodyInicio + 6)).append("\n");
+            int indexBodyInicio = contenidoStr.indexOf("<section>");
+            int indexBodyFin = contenidoStr.indexOf("</section>");
+            StringBuilder newBody = new StringBuilder(contenidoStr.substring(0, indexBodyInicio + 9)).append("\n");
             for (var comp : components) {
                 if(comp.getPage().equals(pageID)) newBody.append("  ").append(comp.getLabelHTML());
             }
@@ -102,7 +102,7 @@ public class HTMLController {
     }
 
     public static void deleteWebPage(String path) {
-        File file = new File("web_sites/"+path);
+        File file = new File("/var/www/html/"+path);
         deleteFile(file);
     }
     public static void deleteFile(File file) {
@@ -119,7 +119,7 @@ public class HTMLController {
         }
     }
 
-    private static String createHTMLEmpty(String title) {
+    private static String createHTMLEmpty(String site,String title) {
         return  "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +
@@ -154,6 +154,14 @@ public class HTMLController {
                 "    </style>\n" +
                 "</head>\n" +
                 "<body>\n" +
+                "    <header>\n" +
+                "        <h1>"+site+"</h1>\n" +
+                "    </header>\n" +
+                "    <section>\n" +
+                "    </section>\n" +
+                "    <footer>\n" +
+                "        <p>Derechos reservados &copy; 2024</p>\n" +
+                "    </footer>\n" +
                 "</body>\n" +
                 "</html>";
     }
@@ -206,5 +214,11 @@ public class HTMLController {
                 "    </footer>\n" +
                 "</body>\n" +
                 "</html>";
+    }
+
+    private static String headerHTML(String site){
+        return  "    <header>\n" +
+                "        <h1>"+site+"</h1>\n" +
+                "    </header>\n";
     }
 }

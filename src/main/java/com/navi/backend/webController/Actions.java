@@ -11,7 +11,6 @@ public class Actions {
     public static ArrayList<String> siteIDs = new ArrayList<>();
     public static ArrayList<String> pageIDs = new ArrayList<>();
     public static ArrayList<String> compIDs = new ArrayList<>();
-    public static ArrayList<String> ERRORS = new ArrayList<>();
     public static ArrayList<String> RESPONSES = new ArrayList<>();
     private WebPagesController pagesController = new WebPagesController();
     private WebComponentController componentController = new WebComponentController();
@@ -108,17 +107,17 @@ public class Actions {
     private static boolean errorID(boolean create, Parameter p, ArrayList<String> listIds) {
         if(!p.getValue().matches("[_\\-$][_\\-$a-zA-Z0-9]+")) {
             System.out.println("Not a valid ID: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
-            ERRORS.add("Not a valid ID: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
+            RESPONSES.add("Not a valid ID: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
             return true;
         }
         if(create && listIds.contains(p.getValue())){
             System.out.println("Repeated ID: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
-            ERRORS.add("Repeated ID: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
+            RESPONSES.add("Repeated ID: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
             return true;
         }
         if(!create && !listIds.contains(p.getValue())){
             System.out.println("ID not found: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
-            ERRORS.add("ID not found: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
+            RESPONSES.add("ID not found: " + p.getValue() + ", line:" + p.getLine() + ", col: " + p.getCol());
             return true;
         }
         return false;
@@ -174,7 +173,17 @@ public class Actions {
                 site = s.getSite();
             }
         }
-        return site+"/"+ searchPage(father, route+"/"+route);
+        return site+"/"+ searchPage(father, route+"/");
+    }
+    public static String searchPageWWW(String route){
+        String father = "", site = "";
+        for(WPage s: getPages){
+            if(s.getId().equals(route)){
+                father = s.getFather();
+                site = s.getSite();
+            }
+        }
+        return "www."+site+".com/"+ searchPage(father, route+"/");
     }
     public static String searchFile(String route){
         String father = "", site = "";

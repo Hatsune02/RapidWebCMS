@@ -20,7 +20,7 @@ public class WebComponentController {
                 case "CLASE" -> clase = p.getValue();
                 default -> {
                     System.out.println("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
-                    ERRORS.add("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
+                    RESPONSES.add("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
                     valid = false;
                 }
             }
@@ -37,13 +37,13 @@ public class WebComponentController {
                             else if(a.getValue().equals("DERECHA")) align = "right";
                             else if(a.getValue().equals("JUSTIFICAR")) align = "justify";
                             else {
-                                ERRORS.add("Invalid ALINEACION : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
+                                RESPONSES.add("Invalid ALINEACION : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
                             }
                         }
                         case "COLOR" -> color = a.getValue();
                         default -> {
                             System.out.println("Invalid Attribute : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
-                            ERRORS.add("Invalid Attribute : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
+                            RESPONSES.add("Invalid Attribute : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
                             valid = false;
                         }
                     }
@@ -72,7 +72,7 @@ public class WebComponentController {
                             else if(a.getValue().equals("DERECHA")) align = "right";
                             else if(a.getValue().equals("JUSTIFICAR")) align = "justify";
                             else {
-                                ERRORS.add("Invalid ALINEACION : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
+                                RESPONSES.add("Invalid ALINEACION : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
                             }
                         }
                         case "ALTURA" -> height = a.getValue();
@@ -80,7 +80,7 @@ public class WebComponentController {
                         default -> {
                             System.out.println("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
                             valid = false;
-                            ERRORS.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
+                            RESPONSES.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
                         }
                     }
                 }
@@ -105,7 +105,7 @@ public class WebComponentController {
                         default -> {
                             System.out.println("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
                             valid = false;
-                            ERRORS.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
+                            RESPONSES.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
                         }
                     }
                 }
@@ -128,11 +128,29 @@ public class WebComponentController {
                         break;
                     }
                 }
-            }
-            default -> System.out.println("Invalid Attribute : " + clase);
-        }
+                if(valid){
+                    String component = "    <nav>\n        <ul>\n";
+                    for(var p: getPages){
+                        if(p.getFather().equals(father)) {
+                            if(!labels.isEmpty()){
+                                if(p.getLabels().contains(labels)){
+                                    component += "\t\t\t<li><a href =\""+ searchPageWWW(p.getId()) +"\">"+p.getId()+"</a></li>\n";
+                                }
+                            }
+                            else{
+                                component += "\t\t\t<li><a href =\""+ searchPageWWW(p.getId()) +"\">"+p.getId()+"</a></li>\n";
+                            }
+                        }
+                    }
+                    component += "        </ul>\n    </nav>";
 
-        System.out.println("Creating Component ID: " + id + " pagina: " + page + " clase: " + clase);
+                    WComponent c = new WComponent(id, page, clase, "", "", "", "", "", "", labels, component);
+                    addComponentToLists(id, page, component, c);
+                    RESPONSES.add("Creating Component ID: " + id + " pagina: " + page + " clase: " + clase);
+                }
+            }
+            default -> RESPONSES.add("Invalid Attribute : " + clase);
+        }
     }
 
     public void deleteComponent(ArrayList<Parameter> parameters){
@@ -144,7 +162,7 @@ public class WebComponentController {
                 case "PAGINA" -> page = p.getValue();
                 default -> {
                     System.out.println("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
-                    ERRORS.add("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
+                    RESPONSES.add("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
                     valid = false;
                 }
             }
@@ -169,7 +187,7 @@ public class WebComponentController {
                 case "CLASE" -> clase = p.getValue();
                 default -> {
                     System.out.println("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
-                    ERRORS.add("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
+                    RESPONSES.add("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
                     valid = false;
                 }
             }
@@ -187,13 +205,13 @@ public class WebComponentController {
                                 else if(a.getValue().equals("DERECHA")) align = "right";
                                 else if(a.getValue().equals("JUSTIFICAR")) align = "justify";
                                 else {
-                                    ERRORS.add("Invalid ALINEACION : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
+                                    RESPONSES.add("Invalid ALINEACION : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
                                 }
                             }
                             case "COLOR" -> color = a.getValue();
                             default -> {
                                 System.out.println("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", col: " + a.getCol());
-                                ERRORS.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", col: " + a.getCol());
+                                RESPONSES.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", col: " + a.getCol());
                                 valid = false;
                             }
                         }
@@ -221,14 +239,14 @@ public class WebComponentController {
                                 else if(a.getValue().equals("DERECHA")) align = "right";
                                 else if(a.getValue().equals("JUSTIFICAR")) align = "justify";
                                 else {
-                                    ERRORS.add("Invalid ALINEACION : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
+                                    RESPONSES.add("Invalid ALINEACION : " + a.getName() + ", line: " + a.getLine() + ", col: " + a.getCol());
                                 }
                             }
                             case "ALTURA" -> height = a.getValue();
                             case "ANCHO" -> width = a.getValue();
                             default -> {
                                 System.out.println("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
-                                ERRORS.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
+                                RESPONSES.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
                                 valid = false;
                             }
                         }
@@ -241,6 +259,7 @@ public class WebComponentController {
                         component = "<img src=\"" + url + "\" style=\"" + style + "\">";
                         WComponent c = new WComponent(id, page, clase, "", align, "", url, height, width, "", component);
                         editComponentsFromLists(id, c, page);
+                        RESPONSES.add("Editing Component ID: " + id + " pagina: " + page + " clase: " + clase);
                     }
                 }
                 case "VIDEO" -> {
@@ -252,7 +271,7 @@ public class WebComponentController {
                             case "ANCHO" -> width = a.getValue();
                             default -> {
                                 System.out.println("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
-                                ERRORS.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
+                                RESPONSES.add("Invalid Attribute : " + a.getName() + ", linea: " + a.getLine() + ", columna: " + a.getCol());
                                 valid = false;
                             }
                         }
@@ -262,6 +281,7 @@ public class WebComponentController {
                         component = "<video height=\"" + height + "\" width=\"" + width + "\">\n<source src\"" + url + "\" type=\"video/mp4\">\n</video>";
                         WComponent c = new WComponent(id, page, clase, "", "", "", url, height, width, "", component);
                         editComponentsFromLists(id, c, page);
+                        RESPONSES.add("Editing Component ID: " + id + " pagina: " + page + " clase: " + clase);
                     }
                 }
                 case "MENU" -> {
@@ -275,11 +295,30 @@ public class WebComponentController {
                             break;
                         }
                     }
+                    if(valid){
+                        String component = "    <nav>\n        <ul>\n";
+                        for(var p: getPages){
+                            if(p.getFather().equals(father)) {
+                                if(!labels.isEmpty()){
+                                    if(p.getLabels().contains(labels)){
+                                        component += "\t\t\t<li><a href =\""+ searchPageWWW(p.getId()) +"\">"+p.getId()+"</a></li>\n";
+                                    }
+                                }
+                                else{
+                                    component += "\t\t\t<li><a href =\""+ searchPageWWW(p.getId()) +"\">"+p.getId()+"</a></li>\n";
+                                }
+                            }
+                        }
+                        component += "        </ul>\n    </nav>";
+
+                        WComponent c = new WComponent(id, page, clase, "", "", "", "", "", "", labels, component);
+                        editComponentsFromLists(id, c, page);
+                        RESPONSES.add("Editing Component ID: " + id + " pagina: " + page + " clase: " + clase);
+                    }
                 }
-                default -> System.out.println("Invalid Attribute : " + clase);
+                default -> RESPONSES.add("Invalid Attribute : " + clase);
             }
         }
-        System.out.println("Editing Component");
     }
 
     public boolean validComponent(String id){

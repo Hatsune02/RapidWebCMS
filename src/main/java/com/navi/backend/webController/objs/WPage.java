@@ -9,6 +9,7 @@ public class WPage {
     private String id, cUser, cDate, eDate, eUser, title, site, father;
     private Map<String, WPage> pages;
     private ArrayList<WComponent> wComponents;
+    private ArrayList<String> labels;
 
     public WPage(String id, String cUser, String cDate, String eDate, String eUser, String title, String site, String father) {
         this.id = id;

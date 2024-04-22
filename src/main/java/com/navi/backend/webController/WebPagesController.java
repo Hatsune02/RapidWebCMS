@@ -25,7 +25,7 @@ public class WebPagesController {
                 case "PADRE" -> father = p.getValue();
                 default -> {
                     System.out.println("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
-                    ERRORS.add("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
+                    RESPONSES.add("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
                     valid = false;
                 }
             }
@@ -36,13 +36,17 @@ public class WebPagesController {
                 cDate = d.toString();
             }
             if(eUser.isEmpty()) eUser = cUser;
-            for(WebSite s: getSites){
-                //if(s.getId().equals(site)) s.getWPages().add(new WPage(id, cUser, cDate, eDate, eUser, title, site, father, new ArrayList<>(), new ArrayList<>()));
+
+            var p = new WPage(id, cUser, cDate, eDate, eUser, title, site, father);
+            ArrayList<String> labels = new ArrayList<>();
+            for(var label: action.getLabels()){
+                labels.add(label.getValue());
             }
-            getPages.add(new WPage(id, cUser, cDate, eDate, eUser, title, site, father));
-            String path = site + "/" + searchPage(father, id);
+            p.setLabels(labels);
+            getPages.add(p);
+            String path = site + "/" + searchPage(father, id)+"/";
             pageIDs.add(id);
-            HTMLController.createWebPage(id, path, title, site);
+            HTMLController.createWebPage(path, title, site);
             String response = "Creating Page ID: " + id + ", usuario_creacion: " + cUser + ", date: " + cDate +
                     ", ModificationDate: " + eDate + ", ModificationUser: " + eUser + ", title: " + title + ", site: " + site + ", father: " + father;
             RESPONSES.add(response);
@@ -55,7 +59,7 @@ public class WebPagesController {
             if(p.getName().equals("ID")) id = p.getValue();
             else{
                 System.out.println("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
-                ERRORS.add("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
+                RESPONSES.add("Invalid Parameter : " + p.getName() + ", line: " + p.getLine() + ", col: " + p.getCol());
                 valid = false;
             }
         }
@@ -89,7 +93,7 @@ public class WebPagesController {
                 case "PADRE" -> father = p.getValue();
                 default -> {
                     System.out.println("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
-                    ERRORS.add("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
+                    RESPONSES.add("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
                     valid = false;
                 }
             }
@@ -106,6 +110,14 @@ public class WebPagesController {
                 p.setEDate(d.toString());
             }
             else p.setEDate(eDate);
+
+            if(!action.getLabels().isEmpty()){
+                ArrayList<String> labels = new ArrayList<>();
+                for(var label: action.getLabels()){
+                    labels.add(label.getValue());
+                }
+                p.setLabels(labels);
+            }
 
             for(var wPage : getPages){
                 if(wPage.getId().equals(id)) {

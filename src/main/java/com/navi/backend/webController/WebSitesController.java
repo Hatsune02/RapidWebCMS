@@ -21,7 +21,7 @@ public class WebSitesController {
             else if(p.getName().equals("USUARIO_MODIFICACION")) eUser = p.getValue();
             else{
                 System.out.println("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
-                ERRORS.add("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
+                RESPONSES.add("Invalid Parameter : " + p.getName() + ", linea: " + p.getLine() + ", columna: " + p.getCol());
                 valid = false;
                 break;
             }
@@ -40,7 +40,7 @@ public class WebSitesController {
             RESPONSES.add(response);
         }
         else {
-            ERRORS.add("Parameters incomplete");
+            RESPONSES.add("Parameters incomplete");
         }
 
     }

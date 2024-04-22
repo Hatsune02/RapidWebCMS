@@ -36,11 +36,14 @@ public class CMSParser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\016\000\002\002\004\000\002\002\004\000\002\002" +
-    "\005\000\002\003\005\000\002\003\005\000\002\003\005" +
-    "\000\002\003\006\000\002\003\006\000\002\003\006\000" +
-    "\002\003\006\000\002\003\006\000\002\003\006\000\002" +
-    "\004\003\000\002\004\005" });
+    "\000\027\000\002\002\004\000\002\002\003\000\002\002" +
+    "\004\000\002\002\004\000\002\003\006\000\002\003\006" +
+    "\000\002\003\010\000\002\003\007\000\002\003\007\000" +
+    "\002\003\007\000\002\003\007\000\002\003\007\000\002" +
+    "\003\007\000\002\003\004\000\002\006\003\000\002\006" +
+    "\005\000\002\006\005\000\002\005\005\000\002\004\005" +
+    "\000\002\004\005\000\002\007\005\000\002\007\007\000" +
+    "\002\007\007" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -48,23 +51,45 @@ public class CMSParser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\036\000\004\004\005\001\002\000\006\002\037\004" +
-    "\005\001\002\000\012\005\013\006\012\007\010\010\011" +
-    "\001\002\000\004\013\007\001\002\000\006\002\000\004" +
-    "\000\001\002\000\004\021\035\001\002\000\016\011\022" +
-    "\014\021\015\026\016\024\017\025\020\023\001\002\000" +
-    "\004\021\014\001\002\000\004\021\014\001\002\000\006" +
-    "\012\ufff5\013\ufff5\001\002\000\006\012\016\013\ufffe\001" +
-    "\002\000\004\021\017\001\002\000\006\012\ufff4\013\ufff4" +
-    "\001\002\000\006\012\016\013\ufffd\001\002\000\004\021" +
-    "\034\001\002\000\004\021\033\001\002\000\004\021\032" +
-    "\001\002\000\004\021\031\001\002\000\004\021\030\001" +
-    "\002\000\004\021\027\001\002\000\004\013\ufffa\001\002" +
-    "\000\004\013\ufff8\001\002\000\004\013\ufff9\001\002\000" +
-    "\004\013\ufff7\001\002\000\004\013\ufff6\001\002\000\004" +
-    "\013\ufffb\001\002\000\004\013\ufffc\001\002\000\004\013" +
-    "\040\001\002\000\004\002\001\001\002\000\006\002\uffff" +
-    "\004\uffff\001\002" });
+    "\000\102\000\006\003\006\004\005\001\002\000\010\002" +
+    "\104\003\010\004\005\001\002\000\012\005\016\006\015" +
+    "\007\013\010\014\001\002\000\010\003\010\004\005\014" +
+    "\012\001\002\000\010\002\000\003\000\004\000\001\002" +
+    "\000\004\014\012\001\002\000\010\002\ufffe\003\ufffe\004" +
+    "\ufffe\001\002\000\010\002\ufff4\003\ufff4\004\ufff4\001\002" +
+    "\000\004\015\077\001\002\000\016\011\057\016\055\017" +
+    "\062\020\060\021\061\022\056\001\002\000\006\003\035" +
+    "\015\037\001\002\000\006\003\017\015\021\001\002\000" +
+    "\004\013\031\001\002\000\006\013\024\014\025\001\002" +
+    "\000\004\024\022\001\002\000\004\015\023\001\002\000" +
+    "\006\013\uffed\014\uffed\001\002\000\004\015\026\001\002" +
+    "\000\010\002\ufffd\003\ufffd\004\ufffd\001\002\000\004\024" +
+    "\027\001\002\000\004\015\030\001\002\000\006\013\uffec" +
+    "\014\uffec\001\002\000\004\015\032\001\002\000\004\024" +
+    "\033\001\002\000\004\015\034\001\002\000\006\013\uffeb" +
+    "\014\uffeb\001\002\000\004\013\053\001\002\000\006\013" +
+    "\ufff3\014\ufff3\001\002\000\004\024\044\001\002\000\006" +
+    "\013\041\014\042\001\002\000\004\015\037\001\002\000" +
+    "\010\002\ufffc\003\ufffc\004\ufffc\001\002\000\006\013\ufff2" +
+    "\014\ufff2\001\002\000\004\012\051\001\002\000\006\012" +
+    "\046\015\047\001\002\000\004\024\050\001\002\000\006" +
+    "\013\ufff0\014\ufff0\001\002\000\006\012\uffee\015\uffee\001" +
+    "\002\000\004\024\052\001\002\000\006\012\uffef\015\uffef" +
+    "\001\002\000\004\015\037\001\002\000\006\013\ufff1\014" +
+    "\ufff1\001\002\000\004\015\037\001\002\000\004\015\037" +
+    "\001\002\000\004\015\037\001\002\000\004\015\037\001" +
+    "\002\000\004\015\037\001\002\000\004\015\037\001\002" +
+    "\000\004\014\064\001\002\000\010\002\ufff9\003\ufff9\004" +
+    "\ufff9\001\002\000\004\014\066\001\002\000\010\002\ufff7" +
+    "\003\ufff7\004\ufff7\001\002\000\004\014\070\001\002\000" +
+    "\010\002\ufff8\003\ufff8\004\ufff8\001\002\000\004\014\072" +
+    "\001\002\000\010\002\ufff5\003\ufff5\004\ufff5\001\002\000" +
+    "\004\014\074\001\002\000\010\002\ufff6\003\ufff6\004\ufff6" +
+    "\001\002\000\004\014\076\001\002\000\010\002\ufffa\003" +
+    "\ufffa\004\ufffa\001\002\000\004\024\100\001\002\000\004" +
+    "\015\101\001\002\000\004\014\102\001\002\000\010\002" +
+    "\ufffb\003\ufffb\004\ufffb\001\002\000\010\002\uffff\003\uffff" +
+    "\004\uffff\001\002\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -72,17 +97,29 @@ public class CMSParser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\036\000\006\002\003\003\005\001\001\000\004\003" +
-    "\035\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\004" +
-    "\017\001\001\000\004\004\014\001\001\000\002\001\001" +
+    "\000\102\000\006\002\003\003\006\001\001\000\004\003" +
+    "\102\001\001\000\002\001\001\000\004\003\010\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
+    "\005\035\006\037\001\001\000\004\007\017\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\004\044\001\001\000\002\001\001\000\004\005\042\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\005\053\001\001\000\002\001\001\000\004\005\074\001" +
+    "\001\000\004\005\072\001\001\000\004\005\070\001\001" +
+    "\000\004\005\066\001\001\000\004\005\064\001\001\000" +
+    "\004\005\062\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001" });
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -121,12 +158,19 @@ public class CMSParser extends java_cup.runtime.lr_parser {
 
 
 
-    public CMSParser(CMSLexer lex) {
+
+    public ArrayList<SitePageCounter> sitePages = new ArrayList<>();
+    JTextArea textArea;
+
+    public CMSParser(CMSLexer lex, JTextArea textArea) {
         super(lex);
+        this.textArea = textArea;
     }
     //Metodo al que se llama ante algun error sintactico
     public void syntax_error(Symbol s){
-        String lexeme = s.value.toString();
+        String lexeme;
+        if(s.value==null) lexeme = "Unknown";
+        else lexeme = s.value.toString();
 
         int line = s.left;
         int col = s.right;
@@ -141,7 +185,9 @@ public class CMSParser extends java_cup.runtime.lr_parser {
 
     //Metodo que se llama en el momento en que ya no es posible una recuperacion
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        String lexeme = s.value.toString();
+        String lexeme;
+        if(s.value==null) lexeme = "Unknown";
+        else lexeme = s.value.toString();
         int line = s.left;
         int col = s.right;
         System.out.println("ERROR SINTACTICO NO RECUPERABLE");
@@ -192,7 +238,16 @@ class CUP$CMSParser$actions {
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // querys ::= query P_COMA 
+          case 1: // querys ::= query 
+            {
+              Object RESULT =null;
+
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("querys",0, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 2: // querys ::= querys query 
             {
               Object RESULT =null;
 
@@ -201,171 +256,292 @@ class CUP$CMSParser$actions {
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // querys ::= querys query P_COMA 
+          case 3: // querys ::= error query 
             {
               Object RESULT =null;
 
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("querys",0, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("querys",0, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // query ::= CONSULTAR VISITAS_SITIO paths 
+          case 4: // query ::= CONSULTAR VISITAS_SITIO sites P_COMA 
             {
               Object RESULT =null;
-		int psleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int psright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		ArrayList<String> ps = (ArrayList<String>)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		int sleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		ArrayList<SitePageCounter> s = (ArrayList<SitePageCounter>)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
 		
-                Query.consultVisitsSites(ps);
-            
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
-            }
-          return CUP$CMSParser$result;
+            Query.consultVisitsSites(s);
 
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // query ::= CONSULTAR VISITAS_PAGINA paths 
-            {
-              Object RESULT =null;
-		int psleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int psright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		ArrayList<String> ps = (ArrayList<String>)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
-		
-                Query.consultVisitsPages(ps);
-            
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            textArea.append("Consulting visits site\n");
+            for(var x:s){
+                textArea.append(x.toString());
             }
-          return CUP$CMSParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // query ::= CONSULTAR PAGINAS_P PATH 
-            {
-              Object RESULT =null;
-		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
-		
-                Query.consultPopularPages(p);
-            
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
-            }
-          return CUP$CMSParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // query ::= CONSULTAR COMPONENTE TITULO PATH 
-            {
-              Object RESULT =null;
-		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
-		
-                Query.consultComponents(p, 1);
             
               CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-3)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // query ::= CONSULTAR COMPONENTE PARRAFO PATH 
+          case 5: // query ::= CONSULTAR VISITAS_PAGINA paths P_COMA 
             {
               Object RESULT =null;
-		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		int psleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int psright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		ArrayList<SitePageCounter> ps = (ArrayList<SitePageCounter>)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
 		
-                Query.consultComponents(p, 2);
+            Query.consultVisitsPages(ps);
+            textArea.append("Consulting visits site\n");
+            for(var x:ps){
+                textArea.append(x.toString());
+            }
             
               CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-3)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // query ::= CONSULTAR COMPONENTE IMAGEN PATH 
+          case 6: // query ::= CONSULTAR PAGINAS_P COMILLAS ID COMILLAS P_COMA 
             {
               Object RESULT =null;
-		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).value;
 		
-                Query.consultComponents(p, 3);
+            Query.consultPopularPages(i, textArea);
             
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-3)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-5)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // query ::= CONSULTAR COMPONENTE VIDEO PATH 
+          case 7: // query ::= CONSULTAR COMPONENTE TITULO path P_COMA 
             {
               Object RESULT =null;
-		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		SitePageCounter p = (SitePageCounter)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
 		
-                Query.consultComponents(p, 4);
+            Query.consultComponents(p, 1, textArea);
             
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-3)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // query ::= CONSULTAR COMPONENTE MENU PATH 
+          case 8: // query ::= CONSULTAR COMPONENTE PARRAFO path P_COMA 
             {
               Object RESULT =null;
-		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		SitePageCounter p = (SitePageCounter)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
 		
-                Query.consultComponents(p, 5);
+            Query.consultComponents(p, 2, textArea);
             
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-3)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // query ::= CONSULTAR COMPONENTE TODOS PATH 
+          case 9: // query ::= CONSULTAR COMPONENTE IMAGEN path P_COMA 
             {
               Object RESULT =null;
-		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		SitePageCounter p = (SitePageCounter)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
 		
-                Query.consultComponents(p, 6);
+            Query.consultComponents(p, 3, textArea);
             
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-3)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // paths ::= PATH 
+          case 10: // query ::= CONSULTAR COMPONENTE VIDEO path P_COMA 
             {
-              ArrayList<String> RESULT =null;
-		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
-		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+              Object RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		SitePageCounter p = (SitePageCounter)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
 		
-            ArrayList<String> v = new ArrayList<>();
-            v.add(p);
-            RESULT = v;
+            Query.consultComponents(p, 4, textArea);
             
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("paths",2, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // paths ::= paths COMA PATH 
+          case 11: // query ::= CONSULTAR COMPONENTE MENU path P_COMA 
             {
-              ArrayList<String> RESULT =null;
+              Object RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		SitePageCounter p = (SitePageCounter)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
+		
+            Query.consultComponents(p, 5, textArea);
+            
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 12: // query ::= CONSULTAR COMPONENTE TODOS path P_COMA 
+            {
+              Object RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		SitePageCounter p = (SitePageCounter)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
+		
+            Query.consultComponents(p, 6, textArea);
+            
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 13: // query ::= error P_COMA 
+            {
+              Object RESULT =null;
+
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("query",1, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 14: // paths ::= path 
+            {
+              ArrayList<SitePageCounter> RESULT =null;
+		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
+		SitePageCounter p = (SitePageCounter)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		
+        ArrayList<SitePageCounter> v = new ArrayList<>();
+        v.add(p);
+        RESULT = v;
+        
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("paths",4, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 15: // paths ::= paths COMA path 
+            {
+              ArrayList<SitePageCounter> RESULT =null;
 		int vleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).left;
 		int vright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).right;
-		ArrayList<String> v = (ArrayList<String>)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).value;
+		ArrayList<SitePageCounter> v = (ArrayList<SitePageCounter>)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).value;
 		int pleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
 		int pright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
-		String p = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		SitePageCounter p = (SitePageCounter)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
 		
-            v.add(p);
-            RESULT = v;
-            
-              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("paths",2, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+        v.add(p);
+        RESULT = v;
+        
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("paths",4, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 16: // paths ::= error COMA path 
+            {
+              ArrayList<SitePageCounter> RESULT =null;
+
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("paths",4, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 17: // path ::= COMILLAS listI COMILLAS 
+            {
+              SitePageCounter RESULT =null;
+		int lleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int lright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		String l = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
+		
+        RESULT = new SitePageCounter(l,0);
+        
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("path",3, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 18: // listI ::= ID PUNTO ID 
+            {
+              String RESULT =null;
+		int id1left = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).left;
+		int id1right = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).right;
+		String id1 = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).value;
+		int id2left = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
+		int id2right = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
+		String id2 = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		
+        RESULT = id1 + "/" + id2;
+        
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("listI",2, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 19: // listI ::= listI PUNTO ID 
+            {
+              String RESULT =null;
+		int lleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).left;
+		int lright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).right;
+		String l = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.peek()).value;
+		
+        RESULT = l + "/" + i;
+        
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("listI",2, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 20: // sites ::= COMILLAS ID COMILLAS 
+            {
+              ArrayList<SitePageCounter> RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
+		
+        ArrayList<SitePageCounter> sites = new ArrayList<>();
+        sites.add(new SitePageCounter(i,0));
+        RESULT = sites;
+        
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("sites",5, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-2)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 21: // sites ::= sites COMA COMILLAS ID COMILLAS 
+            {
+              ArrayList<SitePageCounter> RESULT =null;
+		int sleft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)).right;
+		ArrayList<SitePageCounter> s = (ArrayList<SitePageCounter>)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
+		
+        s.add(new SitePageCounter(i,0));
+        RESULT = s;
+        
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("sites",5, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
+            }
+          return CUP$CMSParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 22: // sites ::= error COMA COMILLAS ID COMILLAS 
+            {
+              ArrayList<SitePageCounter> RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-1)).value;
+
+              CUP$CMSParser$result = parser.getSymbolFactory().newSymbol("sites",5, ((java_cup.runtime.Symbol)CUP$CMSParser$stack.elementAt(CUP$CMSParser$top-4)), ((java_cup.runtime.Symbol)CUP$CMSParser$stack.peek()), RESULT);
             }
           return CUP$CMSParser$result;
 

@@ -3,7 +3,7 @@ package com.navi.backend.webController;
 import java.io.*;
 
 public class ApacheController {
-    private static final String IP = "192.168.100.226";
+    private static final String IP = "127.0.1.1";
     public static void createSite(String site){
         String pathConfig = "/etc/apache2/sites-available/"+site+".conf";
         String config = "<VirtualHost *:80>\n" +
@@ -11,7 +11,9 @@ public class ApacheController {
                 "    ServerAdmin webmaster@localhost\n" +
                 "    ServerAlias www."+site+".com\n" +
                 "    DocumentRoot /var/www/html/"+site+"\n" +
-                "    DirectoryIndex index.html\n" +
+                "    DirectoryIndex index.html\n\n" +
+                "    ErrorLog ${APACHE_LOG_DIR}/error.log\n" +
+                "    CustomLog ${APACHE_LOG_DIR}/sites-log.log host_site\n" +
                 "</VirtualHost>";
         try {
             File file = new File(pathConfig);
@@ -28,7 +30,7 @@ public class ApacheController {
             ProcessBuilder pb = new ProcessBuilder("a2ensite", name);
             Process process = pb.start();
             process.waitFor();
-            ProcessBuilder pb2 = new ProcessBuilder("service", "apache2", "reload");
+            ProcessBuilder pb2 = new ProcessBuilder("systemctl", " restart ", "apache2");
             Process process2 = pb2.start();
             process2.waitFor();
 

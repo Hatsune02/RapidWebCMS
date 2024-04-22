@@ -13,7 +13,7 @@ public class TError {
         return
                 "Lexema: " + lexeme +
                 ", Tipo: " + type +
-                "\nDescription: " + description +
+                ", Description: " + description +
                 ", Linea: " + line +
                 ", Columna:" + col;
     }

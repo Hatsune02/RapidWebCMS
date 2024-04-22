@@ -20,10 +20,10 @@ public class DashBoard extends javax.swing.JFrame {
     public DashBoard() {
         initComponents();
         NumLine numLine = new NumLine(textQuery);
-        NumLine numLine2 = new NumLine(textQuery);
-        NumLine numLine3 = new NumLine(textQuery);
-        scrollConsole.setRowHeaderView(numLine);
-        scrollQuery.setRowHeaderView(numLine2);
+        NumLine numLine2 = new NumLine(textConsole);
+        NumLine numLine3 = new NumLine(textXML);
+        scrollQuery.setRowHeaderView(numLine);
+        scrollConsole.setRowHeaderView(numLine2);
         scrollXML.setRowHeaderView(numLine3);
         textConsole.setEditable(false);
 
@@ -36,11 +36,8 @@ public class DashBoard extends javax.swing.JFrame {
                         xmlParser = new XMLParser(xmlLexer);
                         try {
                             xmlParser.parse();
-                            /*if(errors.size() == 0) {
-                                xmlParser.setValid(true);
-                                xmlParser.parse();
-                            }*/
                         } catch (Exception ex) {
+                            showErrConsole();
                             throw new RuntimeException(ex);
                         }
                         showErrConsole();
@@ -54,14 +51,23 @@ public class DashBoard extends javax.swing.JFrame {
                 if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_P) {
                     if(!textQuery.getText().isEmpty()) {
                         cmsLexer = new CMSLexer(new StringReader(textQuery.getText()));
-                        cmsParser = new CMSParser(cmsLexer);
+                        cmsParser = new CMSParser(cmsLexer, textConsole);
                         try {
-                            if(ERRORS.isEmpty()) cmsParser.parse();
+                            cmsParser.parse();
                         } catch (Exception ex) {
+                            showErrConsole();
                             throw new RuntimeException(ex);
                         }
                         showErrConsole();
                     }
+                }
+            }
+        });
+        textConsole.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_L) {
+                    textConsole.setText("");
                 }
             }
         });
@@ -74,14 +80,6 @@ public class DashBoard extends javax.swing.JFrame {
                 error.append(err).append("\n");
             }
             ERRORS.clear();
-            textConsole.append(error.toString());
-        }
-        if(!Actions.ERRORS.isEmpty()){
-            StringBuilder error = new StringBuilder();
-            for(var err: Actions.ERRORS){
-                error.append(err).append("\n");
-            }
-            Actions.ERRORS.clear();
             textConsole.append(error.toString());
         }
         StringBuilder console = new StringBuilder();
@@ -235,21 +233,6 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void openXMLActionPerformed(java.awt.event.ActionEvent evt) {
         textXML.setText(loadFile());
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        FlatMaterialDarkerIJTheme.setup();
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DashBoard().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify
