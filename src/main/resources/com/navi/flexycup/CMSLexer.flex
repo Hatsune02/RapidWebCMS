@@ -47,9 +47,9 @@ paginas_populares = {p}{a}{g}{i}{n}{a}{s}"_"{p}{o}{p}{u}{l}{a}{r}{e}{s}
 componente = {c}{o}{m}{p}{o}{n}{e}{n}{t}{e}
 todos = {t}{o}{d}{o}{s}
 
-ids = [_$-][_\-$a-zA-Z0-9]+(\.[_$-][_\-$a-zA-Z0-9]+)*
-path = "\""{ids}"\""
+id = [_$-][_\-$a-zA-Z0-9]+
 
+alf = [a-zA-z0-9]+
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator} | [ \t\f]
@@ -59,13 +59,13 @@ WhiteSpace = {LineTerminator} | [ \t\f]
         return new Symbol(type, yyline+1,yycolumn+1);
     }
     private Symbol symbol(int type, Object value){
-        System.out.println(yytext().replace("[","").replace("]","").replaceAll("\"",""));
         return new Symbol(type, yyline+1, yycolumn+1, value);
     }
-    private void error(){
-        System.out.println("Error en linea: "+(yyline+1)+", columna: "+(yycolumn+1));
+    private Symbol error(){
+        //System.out.println("Error en linea: "+(yyline+1)+", columna: "+(yycolumn+1));
         TError err = new TError(yytext(), "Error Léxico", "Símbolo inválido", yyline+1, yycolumn+1);
         DashBoard.ERRORS.add(err);
+        return symbol(UNKNOWN, yytext());
     }
 %}
 
@@ -77,17 +77,21 @@ WhiteSpace = {LineTerminator} | [ \t\f]
     {paginas_populares}                  { return symbol(PAGINAS_P, yytext());      }
     {componente}                         { return symbol(COMPONENTE, yytext());      }
     {todos}                              { return symbol(TODOS, yytext());           }
-    {path}                               { return symbol(PATH, yytext().replaceAll("\"","")); }
+    {id}                                 { return symbol(ID, yytext()); }
     "TITULO"                             { return symbol(TITULO, yytext());         }
     "PARRAFO"                            { return symbol(PARRAFO, yytext());         }
     "IMAGEN"                             { return symbol(IMAGEN, yytext());         }
     "VIDEO"                              { return symbol(VIDEO, yytext());         }
     "MENU"                               { return symbol(MENU, yytext());         }
+    "."                                  { return symbol(PUNTO, yytext());         }
     ","                                  { return symbol(COMA, yytext());         }
     ";"                                  { return symbol(P_COMA, yytext());         }
+    "\""                                 { return symbol(COMILLAS, yytext());         }
+    {alf}                                { return error();   }
+
     {WhiteSpace}                         { /**/ }
 
-[^]                                      { error(); }
+[^]                                      { return error(); }
 
 
 <<EOF>>             {return symbol(EOF); }

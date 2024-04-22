@@ -8,16 +8,15 @@ import java.util.*;
 parser code
 {:
     public Actions actions = new Actions();
-    private boolean valid = false;
+    private boolean valid = true;
     public XMLParser(XMLLexer lex) {
         super(lex);
     }
-    public void setValid(boolean valid){
-        this.valid = valid;
-    }
     //Metodo al que se llama ante algun error sintactico
     public void syntax_error(Symbol s){
-        String lexeme = s.value.toString();
+        String lexeme;
+        if(s.value==null) lexeme = "Unknown";
+        else lexeme = s.value.toString();
 
         int line = s.left;
         int col = s.right;
@@ -28,11 +27,15 @@ parser code
         System.out.println("\tcol: " + col);
         TError err = new TError(lexeme,"Error Sintáctico", "Token no esperado", line, col);
         DashBoard.ERRORS.add(err);
+        valid = false;
     }
 
     //Metodo que se llama en el momento en que ya no es posible una recuperacion
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        String lexeme = s.value.toString();
+        String lexeme;
+        if(s.value==null) lexeme = "Unknown";
+        else lexeme = s.value.toString();
+
         int line = s.left;
         int col = s.right;
         System.out.println("ERROR SINTACTICO NO RECUPERABLE");
@@ -41,6 +44,7 @@ parser code
         System.out.println("\tcol: " + col);
         TError err = new TError(lexeme,"Error Sintáctico", "Token no esperado", line, col);
         DashBoard.ERRORS.add(err);
+        valid = false;
     }
 :}
 
@@ -50,14 +54,18 @@ terminal ACCIONES, ACCION, NOMBRE, PARAMETROS, PARAMETRO, ETIQUETAS, ETIQUETA, V
             FECHA_CREACION, FECHA_MODIFICACION, USUARIO_MODIFICACION, TITULO, SITIO, PADRE,
             PAGINA, CLASE,
             TEXTO, ALINEACION, COLOR, ORIGEN, ALTURA, ANCHO, ETIQUETAS_NOMBRE,
-            SLASH, MAYOR, MENOR, EQUAL;
+            SLASH, MAYOR, MENOR, EQUAL, UNKNOWN;
 
 terminal String PARAM, CADENA;
 
-non terminal actions, acciones, accionP, accion,
+non terminal actions, acciones,
             accion_open, accion_close,
             parameter_open, parameter_close,
             atributo_open, atributo_close;
+
+non terminal AllActions accion;
+
+non terminal ArrayList<AllActions> accionP;
 
 non terminal ActionPA action_bodyPA;
 non terminal ActionPE action_bodyPE;
@@ -72,49 +80,73 @@ non terminal Attribute attributes_p;
 non terminal ArrayList<Attribute> atributos, atributoP;
 
 
-//Presedencia
 start with actions;
 
 actions ::= accion
             | acciones
             ;
-acciones ::= MENOR ACCIONES MAYOR accionP MENOR SLASH ACCIONES MAYOR
+acciones ::= MENOR ACCIONES MAYOR accionP:act MENOR SLASH ACCIONES MAYOR
+            {:
+            if(valid){
+                for(var a: act){
+                    a.execute();
+                }
+            }
+            :}
             | error accionP MENOR ACCIONES MAYOR;
-accionP ::= accionP accion
-            | accion
+accionP ::= accion:a
+            {:
+            ArrayList<AllActions> allActions = new ArrayList<>();
+            allActions.add(a);
+            RESULT = allActions;
+            :}
+            | accionP:allActions accion:a
+            {:
+            allActions.add(a);
+            RESULT = allActions;
+            :}
             ;
 accion ::= accion_open NUEVO_SITIO_WEB MAYOR action_bodyP:listP accion_close
             {:
-            if(valid) actions.createSite(listP);
+            RESULT = new AllActions(actions, 1, listP, null, null);
+            //actions.createSite(listP);
             :}
             | accion_open BORRRAR_SITIO_WEB MAYOR action_bodyP:listP accion_close
             {:
-            if(valid) actions.deleteSite(listP);
+            RESULT = new AllActions(actions, 2, listP, null, null);
+            //actions.deleteSite(listP);
             :}
             | accion_open NUEVA_PAGINA MAYOR action_bodyPE:a accion_close
             {:
-            if(valid) actions.createPage(a);
+            RESULT = new AllActions(actions, 3, null, null, a);
+            //actions.createPage(a);
             :}
             | accion_open BORRAR_PAGINA MAYOR action_bodyP:listP accion_close
             {:
-            if(valid) actions.deletePage(listP);
+            RESULT = new AllActions(actions, 4, listP, null, null);
+            //actions.deletePage(listP);
             :}
             | accion_open MODIFICAR_PAGINA MAYOR action_bodyPE:a accion_close
             {:
-            if(valid) actions.editPage(a);
+            RESULT = new AllActions(actions, 5, null, null, a);
+            //actions.editPage(a);
             :}
             | accion_open AGREGAR_COMPONENTE MAYOR action_bodyPA:a accion_close
             {:
-            if(valid) actions.createComponent(a);
+            RESULT = new AllActions(actions, 6, null, a, null);
+            //actions.createComponent(a);
             :}
             | accion_open BORRAR_COMPONENTE MAYOR action_bodyP:listP accion_close
             {:
-            if(valid) actions.deleteComponent(listP);
+            RESULT = new AllActions(actions, 7, listP, null, null);
+            //actions.deleteComponent(listP);
             :}
             | accion_open MODIFICAR_COMPONENTE MAYOR action_bodyPA:a accion_close
             {:
-            if(valid) actions.editComponent(a);
+            RESULT = new AllActions(actions, 8, null, a, null);
+            //actions.editComponent(a);
             :}
+            | error accion_close
              ;
 accion_open ::= MENOR ACCION NOMBRE EQUAL;
 accion_close ::= MENOR SLASH ACCION MAYOR;
@@ -132,6 +164,8 @@ action_bodyPE ::= parameters:listP etiquetas:listE
                 {:
                 RESULT = new ActionPE(listP, listE);
                 :}
+                | error etiquetas
+                | error parameters
                 ;
 action_bodyPA ::= parameters:listP atributos:listA
               {:
@@ -141,12 +175,15 @@ action_bodyPA ::= parameters:listP atributos:listA
               {:
               RESULT = new ActionPA(listP, listA);
               :}
+              | error atributos
+              | error parameters
               ;
 //PARAMETROS
 parameters ::= MENOR PARAMETROS MAYOR parametrosP:list MENOR SLASH PARAMETROS MAYOR
             {:
             RESULT = list;
             :}
+            |error MENOR SLASH PARAMETROS MAYOR
             ;
 parametrosP ::= parameter_p:p
             {:
@@ -159,6 +196,7 @@ parametrosP ::= parameter_p:p
             a.add(p);
             RESULT = a;
             :}
+            | error parameter_p
             ;
 parameter_p ::= parameter_open ID MAYOR PARAM:p parameter_close
             {:
@@ -200,6 +238,7 @@ parameter_p ::= parameter_open ID MAYOR PARAM:p parameter_close
             {:
             RESULT = new Parameter("CLASE",p, pleft, pright);
             :}
+            | error parameter_close
             ;
 parameter_open ::= MENOR PARAMETRO NOMBRE EQUAL
             ;
@@ -210,6 +249,7 @@ etiquetas ::= MENOR ETIQUETAS MAYOR etiquetaP:list MENOR SLASH ETIQUETAS MAYOR
             {:
             RESULT = list;
             :}
+            | error MENOR SLASH ETIQUETAS MAYOR
             ;
 etiquetaP ::= etiqueta:e
              {:
@@ -233,6 +273,7 @@ atributos ::= MENOR ATRIBUTOS MAYOR atributoP:list MENOR SLASH ATRIBUTOS MAYOR
             {:
             RESULT = list;
             :}
+            | error MENOR SLASH ATRIBUTOS MAYOR
             ;
 atributoP ::= attributes_p:att
              {:
@@ -246,7 +287,7 @@ atributoP ::= attributes_p:att
             a.add(att);
             RESULT = a;
             :}
-
+            | error attributes_p
             ;
 attributes_p ::= atributo_open TEXTO MAYOR PARAM:p atributo_close
             {:
@@ -280,6 +321,7 @@ attributes_p ::= atributo_open TEXTO MAYOR PARAM:p atributo_close
             {:
             RESULT = new Attribute("ETIQUETAS",p, pleft, pright);
             :}
+            | error atributo_close
             ;
 atributo_open ::= MENOR ATRIBUTO NOMBRE EQUAL;
 atributo_close ::= MENOR SLASH ATRIBUTO MAYOR;

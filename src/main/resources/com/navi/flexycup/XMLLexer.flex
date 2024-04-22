@@ -51,6 +51,7 @@ etiqueta = {e}{t}{i}{q}{u}{e}{t}{a}
 nombre = {n}{o}{m}{b}{r}{e}
 valor = {v}{a}{l}{o}{r}
 
+alf = [a-zA-z0-9]+
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator} | [ \t\f]
@@ -62,13 +63,14 @@ Cadena = \"([^\"]*)\"
         return new Symbol(type, yyline+1,yycolumn+1);
     }
     private Symbol symbol(int type, Object value){
-        System.out.println(yytext().replace("[","").replace("]","").replaceAll("\"",""));
+        //System.out.println(yytext().replace("[","").replace("]","").replaceAll("\"",""));
         return new Symbol(type, yyline+1, yycolumn+1, value);
     }
-    private void error(){
-        System.out.println("Error en linea: "+(yyline+1)+", columna: "+(yycolumn+1));
+    private Symbol error(){
+        //System.out.println("Error en linea: "+(yyline+1)+", columna: "+(yycolumn+1));
         TError err = new TError(yytext(), "Error Léxico", "Símbolo inválido", yyline+1, yycolumn+1);
         DashBoard.ERRORS.add(err);
+        return symbol(UNKNOWN, yytext());
     }
 %}
 
@@ -115,9 +117,11 @@ Cadena = \"([^\"]*)\"
     {param}                              { return symbol(PARAM, yytext().replace("[","").replace("]","")); }
     {Cadena}                             { return symbol(CADENA, yytext().replaceAll("\"",""));        }
     "="                                  { return symbol(EQUAL, yytext());         }
+    {alf}                                { return error();   }
+
     {WhiteSpace}                         { /**/ }
 
-[^]                         {error(); }
+[^]                         {return error(); }
 
 
 <<EOF>>             {return symbol(EOF); }

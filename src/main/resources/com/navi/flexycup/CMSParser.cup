@@ -8,12 +8,19 @@ import java.util.*;
 
 parser code
 {:
-    public CMSParser(CMSLexer lex) {
+
+    public ArrayList<SitePageCounter> sitePages = new ArrayList<>();
+    JTextArea textArea;
+
+    public CMSParser(CMSLexer lex, JTextArea textArea) {
         super(lex);
+        this.textArea = textArea;
     }
     //Metodo al que se llama ante algun error sintactico
     public void syntax_error(Symbol s){
-        String lexeme = s.value.toString();
+        String lexeme;
+        if(s.value==null) lexeme = "Unknown";
+        else lexeme = s.value.toString();
 
         int line = s.left;
         int col = s.right;
@@ -28,7 +35,9 @@ parser code
 
     //Metodo que se llama en el momento en que ya no es posible una recuperacion
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        String lexeme = s.value.toString();
+        String lexeme;
+        if(s.value==null) lexeme = "Unknown";
+        else lexeme = s.value.toString();
         int line = s.left;
         int col = s.right;
         System.out.println("ERROR SINTACTICO NO RECUPERABLE");
@@ -41,70 +50,119 @@ parser code
 :}
 
 terminal CONSULTAR, VISITAS_SITIO, VISITAS_PAGINA, PAGINAS_P, COMPONENTE, TODOS,
-            COMA, P_COMA, TITULO, PARRAFO, IMAGEN, VIDEO, MENU;
+            PUNTO, COMA, P_COMA, COMILLAS,
+            TITULO, PARRAFO, IMAGEN, VIDEO, MENU, UNKNOWN;
 
-terminal String PATH;
+terminal String ID;
 
 non terminal querys, query;
 
-non terminal ArrayList<String> paths;
+non terminal String listI;
+
+non terminal SitePageCounter path;
+
+non terminal ArrayList<SitePageCounter> paths, sites;
 
 
 
 //Presedencia
 start with querys;
 
-querys      ::= query P_COMA
-            | querys query P_COMA
+querys      ::= query
+            | querys query
+            | error query
             ;
-query     ::= CONSULTAR VISITAS_SITIO paths:ps
+query     ::= CONSULTAR VISITAS_SITIO sites:s P_COMA
             {:
-                Query.consultVisitsSites(ps);
+            Query.consultVisitsSites(s);
+
+            textArea.append("Consulting visits site\n");
+            for(var x:s){
+                textArea.append(x.toString());
+            }
             :}
-            | CONSULTAR VISITAS_PAGINA paths:ps
+            | CONSULTAR VISITAS_PAGINA paths:ps P_COMA
             {:
-                Query.consultVisitsPages(ps);
+            Query.consultVisitsPages(ps);
+            textArea.append("Consulting visits site\n");
+            for(var x:ps){
+                textArea.append(x.toString());
+            }
             :}
-            | CONSULTAR PAGINAS_P PATH:p
+            | CONSULTAR PAGINAS_P COMILLAS ID:i COMILLAS P_COMA
             {:
-                Query.consultPopularPages(p);
+            Query.consultPopularPages(i, textArea);
             :}
-            | CONSULTAR COMPONENTE TITULO PATH:p
+            | CONSULTAR COMPONENTE TITULO path:p P_COMA
             {:
-                Query.consultComponents(p, 1);
+            Query.consultComponents(p, 1, textArea);
             :}
-            | CONSULTAR COMPONENTE PARRAFO PATH:p
+            | CONSULTAR COMPONENTE PARRAFO path:p P_COMA
             {:
-                Query.consultComponents(p, 2);
+            Query.consultComponents(p, 2, textArea);
             :}
-            | CONSULTAR COMPONENTE IMAGEN PATH:p
+            | CONSULTAR COMPONENTE IMAGEN path:p P_COMA
             {:
-                Query.consultComponents(p, 3);
+            Query.consultComponents(p, 3, textArea);
             :}
-            | CONSULTAR COMPONENTE VIDEO PATH:p
+            | CONSULTAR COMPONENTE VIDEO path:p P_COMA
             {:
-                Query.consultComponents(p, 4);
+            Query.consultComponents(p, 4, textArea);
             :}
-            | CONSULTAR COMPONENTE MENU PATH:p
+            | CONSULTAR COMPONENTE MENU path:p P_COMA
             {:
-                Query.consultComponents(p, 5);
+            Query.consultComponents(p, 5, textArea);
             :}
-            | CONSULTAR COMPONENTE TODOS PATH:p
+            | CONSULTAR COMPONENTE TODOS path:p P_COMA
             {:
-                Query.consultComponents(p, 6);
+            Query.consultComponents(p, 6, textArea);
             :}
+            | error P_COMA
             ;
 
-paths     ::= PATH:p
-            {:
-            ArrayList<String> v = new ArrayList<>();
-            v.add(p);
-            RESULT = v;
-            :}
-            | paths:v COMA PATH:p
-            {:
-            v.add(p);
-            RESULT = v;
-            :}
-            ;
+paths   ::= path:p
+        {:
+        ArrayList<SitePageCounter> v = new ArrayList<>();
+        v.add(p);
+        RESULT = v;
+        :}
+        | paths:v COMA path:p
+        {:
+        v.add(p);
+        RESULT = v;
+        :}
+        | error COMA path
+        ;
+
+path ::= COMILLAS listI:l COMILLAS
+        {:
+        RESULT = new SitePageCounter(l,0);
+        :}
+        ;
+listI ::= ID:id1 PUNTO ID:id2
+        {:
+        RESULT = id1 + "/" + id2;
+        :}
+        | listI:l PUNTO ID:i
+        {:
+        RESULT = l + "/" + i;
+        :}
+        ;
+
+
+
+sites ::= COMILLAS ID:i COMILLAS
+        {:
+        ArrayList<SitePageCounter> sites = new ArrayList<>();
+        sites.add(new SitePageCounter(i,0));
+        RESULT = sites;
+        :}
+        | sites:s COMA COMILLAS ID:i COMILLAS
+        {:
+        s.add(new SitePageCounter(i,0));
+        RESULT = s;
+        :}
+        | error COMA COMILLAS ID:i COMILLAS
+        ;
+
 
